@@ -1,20 +1,16 @@
 ---
 layout: primer_without_heading
-title: Publicly share LaTeX sources
+title: Revision Course Discrete Probability Theory
 ---
 
-# Publicly share LaTeX sources
+# Revision Course Discrete Probability Theory
 
-1. Clone and adjust this template
-2. [Setup GitHub Pages deployments](https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key)
-3. List all `.tex` files you want to compile in `.github/workflows/publish.yml`
-4. Push a copy of your master branch as a new `sources` branch
-5. Enable GitHub Pages at the root directory in you `master` branch
+The course is held in five sessions from September 28th to October 2nd.
 
-From now on, the `master` branch will host your deployed files while you commit your changes to `sources`. It is advised that you switch your default branch to `sources`.
+1. September 28th, 9am to 5pm
+1. September 29th, 9am to 5pm
+1. September 30th, 9am to 5pm
+1. October 1st, 9am to 5pm
+1. October 2nd, 9am to 5pm
 
-You may do additional setup work in `scripts/setup.sh`.
-
-## Documents
-
-* [example](https://jonhue.github.io/latex/example.pdf)
+More details and course materials will follow soon.
