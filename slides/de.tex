@@ -1,0 +1,1011 @@
+\documentclass{beamer}
+%
+% Choose how your presentation looks.
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+  \usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{default}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]
+  \setbeamertemplate{itemize items}[circle]
+  \setbeamertemplate{theorems}[numbered]
+  \setbeamercolor*{structure}{bg=white,fg=blue}
+  \setbeamerfont{block title}{size=\normalsize}
+}
+
+% \newtheorem{proposition}[theorem]{Proposition}
+% \theoremstyle{definition}
+% \newtheorem{algorithm}[theorem]{Algorithm}
+% \newtheorem{idea}[theorem]{Idea}
+
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{aligned-overset}
+\usepackage{alltt}
+\usepackage{amsmath}
+\usepackage{csquotes}
+% \usepackage{multicol}
+% \usepackage{stmaryrd}
+\usepackage{tabularx}
+
+% \renewcommand\tabularxcolumn[1]{m{#1}}
+% \newcolumntype{R}{>{\raggedleft\arraybackslash}X}=
+
+\def\code#1{\texttt{\frenchspacing#1}}
+\def\padding{\vspace{0.5cm}}
+\def\spadding{\vspace{0.25cm}}
+\def\b{\textcolor{blue}}
+\def\r{\textcolor{red}}
+\def\g#1{{\usebeamercolor[fg]{block title example}{#1}}}
+
+% fix for \pause in align
+\makeatletter
+\let\save@measuring@true\measuring@true
+\def\measuring@true{%
+  \save@measuring@true
+  \def\beamer@sortzero##1{\beamer@ifnextcharospec{\beamer@sortzeroread{##1}}{}}%
+  \def\beamer@sortzeroread##1<##2>{}%
+  \def\beamer@finalnospec{}%
+}
+\makeatother
+
+\title[DWT Repetitorium]{Diskrete Wahrscheinlichkeitstheorie \\ Repetitorium}
+\author{Jonas Hübotter}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+ \tableofcontents[subsectionstyle=hide, subsubsectionstyle=hide]
+\end{frame}
+\AtBeginSection[]
+  {
+     \begin{frame}[allowframebreaks]{Plan}
+     \tableofcontents[currentsection, sectionstyle=show/hide, hideothersubsections]
+     \end{frame}
+  }
+
+\section{Zählen}
+
+\subsection{Ergebnismengen und Ereignisse}
+\begin{frame}{Ergebnismengen und Ereignisse}
+    \begin{definition}
+        Eine \b{Ergebnismenge} ist die Menge aller möglichen Elementarereignisse eines Experiments.
+    \end{definition}\pause
+    \begin{definition}
+        Ein \b{Ereignis} ist eine Teilmenge der Ergebnismenge.
+    \end{definition}\pause\padding
+    Naive Definition der Wahrscheinlichkeit eines Ereignisses $A$ in der Ergebnismenge $S$:\pause
+    \begin{align*}
+        P(A) = \frac{\text{\# günstige Ergebnisse}}{\text{\# mögliche Ergebnisse}} = \frac{|A|}{|S|}
+    \end{align*}\pause
+    Annahmen:\pause
+    \begin{itemize}
+        \item alle Ergebnisse gleich wahrscheinlich\pause
+        \item endlicher Ergebnisraum
+    \end{itemize}
+\end{frame}
+
+\subsection{Abzählen von Mengen}
+\begin{frame}{Abzählen von Mengen}
+    \begin{block}{Multiplikationsregel}
+        Betrachte $i \in [m]$ Experimente mit $n_i$ möglichen Ergebnissen. Dann ist die Gesamtanzahl an möglichen Ergebnissen
+        \begin{align*}
+            \prod_{i=1}^m n_i.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Kombinatorik-Tabelle}
+        Gegeben $n$ Objekte, wähle $k$ Objekte.
+        \begin{block}{}\begin{tabularx}{\textwidth}{X||X|X}
+            & Reihenfolge & $\neg$ Reihenfolge \\ \hline\hline
+            \onslide<1->{Zurücklegen} & \onslide<2->{$n^k$} & \onslide<5->{$n + k - 1 \choose k$}\\
+            \onslide<1->{$\neg$ Zurücklegen} & \onslide<4->{$\frac{n!}{k!}$} & \onslide<3->{$n \choose k$}
+        \end{tabularx}\end{block}
+    \end{block}
+\end{frame}
+
+\section{Wahrscheinlichkeit}
+\subsection{$\sigma$-Algebren}
+\begin{frame}{$\sigma$-Algebren}
+    \begin{definition}
+        Gegeben die Ergebnismenge $S$. Die Menge $\mathcal{A} \subseteq \mathcal{P}(S)$ ist eine \b{$\sigma$-Algebra} über $S$ wenn die folgenden Eigenschaften erfüllt sind:
+        \begin{itemize}\pause
+            \item $S \in \mathcal{A}$\pause;
+            \item falls $A \in \mathcal{A}$, dann $\bar{A} \in \mathcal{A}$\pause; und
+            \item $\forall n \in \mathbb{N}.\ A_n \in \mathcal{A} \implies \bigcup_{n=1}^{\infty} A_n \in \mathcal{A}$.
+        \end{itemize}
+    \end{definition}\pause\padding
+    \r{Warum benötigen wir $\sigma$-Algebren?}\pause\par
+    Um Ereignisse im Kontext eines Wahrscheinlichkeitsraumes beschreiben zu können.
+\end{frame}
+
+\subsection{Wahrscheinlichkeitsräume}
+\begin{frame}{Wahrscheinlichkeitsräume}
+    \begin{definition}
+        Gegeben die Ergebnismenge $S$ und die $\sigma$-Algebra $\mathcal{A}$ über $S$.\pause\ Die Funktion
+        \begin{align*}
+            P: \mathcal{A} \to [0,1]
+        \end{align*}
+        ist ein \b{Wahrscheinlichkeitsmaß} auf $\mathcal{A}$ falls die \b{Kolmogorov Axiome} erfüllt sind:
+        \begin{itemize}\pause
+            \item $P(S) = 1$;\pause
+            \item $P(\bigcup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i)$ falls $\forall i \neq j.\ A_i \cap A_j = \emptyset$.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Für ein Ereigniss $A \in \mathcal{A}$, $P(A)$ ist die \b{Wahrscheinlichkeit} von $A$.
+    \end{definition}\pause
+    \begin{definition}
+        Ein \b{Wahrscheinlichkeitsraum} besteht aus
+        \begin{itemize}
+            \item einer Ergebnismenge $S$;
+            \item einer $\sigma$-Algebra $\mathcal{A}$ über $S$; und
+            \item einem Wahrscheinlichkeitsmaß $P$ auf $\mathcal{A}$.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    Für einen Wahrscheinlichkeitsraum gelten die folgenden Eigenschaften:\pause
+    \begin{itemize}
+        \item $P(\emptyset) = 0$\pause
+        \item $P(S) = 1$\pause
+        \item $0 \leq P(A) \leq 1$ für alle $A \in \mathcal{A}$\pause
+        \item $P(\bar{A}) = 1 - P(A)$ für alle $A \in \mathcal{A}$\pause
+        \item falls $A, B \in \mathcal{A}$ und $A \subseteq B$, dann $P(A) \leq P(B)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    Weiterhin gilt die \b{Siebformel}:
+    \begin{align*}
+        P(\bigcup_{i=1}^n A_i) = \sum_{I \in [n], I \neq \emptyset} (-1)^{|I| + 1} \cdot P(\bigcap_{i \in I} A_i).
+    \end{align*}\pause\par\padding
+    Und die \b{Bool'sche Ungleichung}:
+    \begin{align*}
+        P(\bigcup_{i=1}^n A_i) \leq \sum_{i=1}^n P(A_i).
+    \end{align*}
+\end{frame}
+
+\subsection{Multivariate- und Randwahrscheinlichkeiten}
+\begin{frame}{Multivariate- und Randwahrscheinlichkeiten}
+    Eine \b{Randwahrscheinlichkeit} ist die Wahrscheinlichkeit eines einzelnen Ereignisses unabhängig von anderen Ereignissen.\pause\par\spadding
+    Eine \b{multivariate Wahrscheinlichkeit} ist die Wahrscheinlichkeit von zwei oder mehreren Ereignissen gleichzeitig aufzutreten:
+    \begin{align*}
+        P(A,B) = P(A \cap B).
+    \end{align*}
+\end{frame}
+
+\section{Bedingte Wahrscheinlichkeit}
+\subsection{A-priori und a-posteriori}
+\begin{frame}{A-priori und a-posteriori}
+    Bedingte Wahrscheinlichkeit \textit{aktualisiert} die Wahrscheinlichkeit eines Ereignisses $A$ gegeben eine neue Information $B$.\pause\par\padding
+    $P(A)$ heißt \b{a-priori} und $P(A|B)$ \b{a-posteriori} Wahrscheinlichkeit.\pause\par\padding
+    \begin{align*}
+        P(A|B) = \frac{P(A,B)}{P(B)}.
+    \end{align*}
+    Die a-posteriori Wahrschenilichkeit ist die multivariate Wahrscheinlichkeit des Ereignisses $A$ und der Information $B$ relativ zu der Wahrscheinlichkeit der Information $B$.
+\end{frame}
+
+\subsection{Unabhängigkeit}
+\begin{frame}{Unabhängigkeit}
+    Zwei Ereignisse sind \b{unabhängig} wenn das Auftreten des einen Ereignisses nicht die Wahrscheinlichkeit des anderen Ereignisses beeinflusst.\pause\par\padding
+    Zwei Ereignisse $A$ und $B$ sind unabhängig\par
+    $\iff P(A|B) = P(A)$\pause\par
+    $\iff P(B|A) = P(B)$\pause\par
+    $\iff P(A,B) = P(A) P(B)$.
+\end{frame}
+
+\subsection{Konditionierung}
+\begin{frame}{Konditionierung}
+    Einige Eigenschaften folgen direkt aus der Definition der bedingten Wahrscheinlichkeit:\pause
+    \begin{itemize}
+        \item $P(A,B) = P(B) P(A|B)\pause = P(A) P(B|A)$,\par da $A \cap B = B \cap A$\pause
+        \item $P(A_1, \dots, A_n) = P(A_1) P(A_2|A_1) P(A_3|A_1, A_2) \cdots P(A_n|A_1, \dots, A_{n-1})$ (\b{Multiplikationssatz})\pause
+        \item $P(A|B) = \frac{P(B|A) P(A)}{P(B)}$ (\b{Satz von Bayes})\pause
+        \item $P(A) = P(A,B) + P(A,\bar{B}) = P(A|B) P(B) + P(A|\bar{B}) P(\bar{B})$ (\b{Gesetz der totalen Wahrscheinlichkeit})
+    \end{itemize}
+\end{frame}
+
+\section{Diskrete Zufallsvariablen}
+\begin{frame}{Diskrete Zufallsvariablen}
+    \begin{definition}
+        Eine \b{Zufallsvariable} $X$ ist eine Funktion
+        \begin{align*}
+            X: S \to \mathbb{R}.
+        \end{align*}\pause
+        Eine Zufallsvariable heißt \b{diskret} wenn ihr Urbild $S$ endlich oder abzählbar unendlich ist.
+    \end{definition}\pause\padding
+    Der Wertebereich einer diskreten Zufallsvariable
+    \begin{align*}
+        X(S) = \{x \in \mathbb{R}.\ \exists A \in S.\ X(A) = x\}
+    \end{align*}
+    ist ebenfalls abzählbar.
+\end{frame}
+
+\subsection{Verteilungsfunktion}
+\begin{frame}{Verteilungsfunktion}
+    $X \leq x$ ist ein Ereignis.\pause\par\padding
+    \begin{definition}
+        Die \b{Verteilungsfunktion} einer Zufallsvariable $X$ ist definiert als $F_X(x) = P(X \leq x) \in [0,1]$.
+    \end{definition}\pause\par\spadding
+    Eigenschaften von Verteilungsfunktionen:\pause
+    \begin{itemize}
+        \item monoton wachsend\pause
+        \item rechtsseitig stetig\pause
+        \item $F_X(x) \xrightarrow{x \to - \infty} 0$\pause
+        \item $F_X(x) \xrightarrow{x \to \infty} 1$
+    \end{itemize}\pause\padding
+    Daher, $P(a < X \leq b) = F_X(b) - F_X(a)$.
+\end{frame}
+
+\subsection{Diskrete Dichtefunktion}
+\begin{frame}{Diskrete Dichtefunktion}
+    \begin{definition}
+        Die \b{diskrete Dichtefunktion} einer diskreten Zufallsvariable $X$ ist definiert als $f_X(x) = P(X = x) \in [0,1]$ wobei
+        \begin{align*}
+            \sum_{x \in X(S)} f_X(x) = 1.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    Die Verteilungsfunktion von $X$ kann von der Dichtefunktion von $X$ erhalten werden indem über die Dichtefunktion summiert wird
+    \begin{align*}
+        F_X(x) = \sum_{x' \leq x} f_X(x').
+    \end{align*}\pause
+    Die Dichtefunktion von $X$ kann von der Verteilungsfunktion von $X$ erhalten werden indem die \textit{Sprünge} in der Verteilungsfunktion identifiziert werden
+    \begin{align*}
+        f_X(x) = F_X(x) - F_X(prev(x)).
+    \end{align*}
+\end{frame}
+
+\subsection{Unabhängigkeit}
+\begin{frame}{Unabhängigkeit}
+    Zwei Zufallsvariablen sind \b{unabhängig} wenn das Wissen des Wertes einer Zufallsvariable keine Auswirkungen auf die Verteilung der anderen Zufallsvariable hat.\pause\par\padding
+    Zwei diskrete Zufallsvariablen $X$ und $Y$ sind unabhängig\par
+    $\iff$ die Ereignisse $X=x$ und $Y=y$ sind unabhängig\pause\par
+    $\iff$ die Ereignisse $X \leq x$ und $Y \leq y$ sind unabhängig.
+\end{frame}
+
+\subsection{Bernoulli Verteilung}
+\begin{frame}{Bernoulli Verteilung}
+    \begin{definition}[$X \sim Bern(p)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{Bernoulli}-verteilt mit Parameter $p$ falls $X(S) = \{0,1\}$ und $P(X=1) = p$.
+    \end{definition}\pause
+    \begin{exampleblock}{Übersicht}
+        \begin{itemize}
+            \item $E(X) = p$
+            \item $Var(X) = p (1 - p)$
+            \item $G_X(s) = 1 - p + p s$
+            \item $M_X(s) = 1 - p + p e^s$
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\subsection{Erwartungswert}
+\begin{frame}{Erwartungswert}
+    \begin{definition}
+        Der \b{Erwartungswert} $E(X)$ einer Zufallsvariable $X$ ist das arithmetische Mittel einer großen Anzahl an Realisierungen von $X$.\pause
+        \begin{align*}
+            E(X) &= \sum_{x \in X(S)} x \cdot P(X = x)\pause \\
+                 &= \sum_{A \in S} X(A) \cdot P(A).
+        \end{align*}
+    \end{definition}\pause\par\padding
+    Für unendlich große Wahrscheinlichkeitsräume ist \r{absolute Konvergenz} von $E(X)$ eine notwendige Bedingung für die Existenz von $E(X)$.\pause
+    \begin{definition}
+        $E(X^i)$ heißt \b{$i$-tes Moment} der Zufallsvariable $X$ und $E((X - E(X))^i)$ heißt \b{$i$-tes zetrales Moment} von $X$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    Eigenschaften des Erwartungswerts:\pause
+    \begin{itemize}
+        \item falls $\forall A \in S.\ X(A) \leq Y(A)$, dann $E(X) \leq E(Y)$ (\b{Monotonie})\pause
+        \item $E(a \cdot X + b) = a \cdot E(X) + b$, $E(X + Y) = E(X) + E(Y)$ (\b{Linearität})\pause
+        \item $E(\prod_{i=1}^n X_i) = \prod_{i=1}^n E(X_i)$ falls $X_1, \dots, X_n$ unabhängig (\b{Multiplikativität}).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    Das sogenannte \b{law of the unconscious statistician (LOTUS)} kann verwendet werden, um den Erwartungswert von transformierten Zufallsvariablen zu finden.
+    \begin{align*}
+        E(g(X)) = \sum_{x \in X(S)} g(x) \cdot P(X = x).
+    \end{align*}
+\end{frame}
+
+\subsection{Indikatorvariablen}
+\begin{frame}{Indikatorvariablen}
+    \begin{definition}
+        Gegeben ein Ereignis $A$, die Zufallsvariable $I_A \sim Bern(P(A))$ ist die \b{Indikatorvariable} des Ereignisses $A$.
+    \end{definition}\pause\par\padding
+    Eigenschaften von Indikatorvariablen:\pause
+    \begin{itemize}
+        \item $E(I_A) = P(A)$\pause
+        \item $E(I_{A_1} \cdots I_{A_n}) = P(A_1 \cap \cdots \cap A_n)$.
+    \end{itemize}
+\end{frame}
+
+\subsection{Binomialverteilung}
+\begin{frame}{Binomialverteilung}
+    \begin{definition}[$X \sim Bin(n,p)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{binomial}-verteilt mit Parametern $n$ und $p$ falls $X$ die \#Erfolge in $n$ unabhängigen $Bern(p)$ Versuchen modelliert.
+    \end{definition}\pause
+    \begin{align*}
+        f_X(k) = {n \choose k} p^k (1 - p)^{n-k}.
+    \end{align*}\pause
+    \begin{exampleblock}{Übersicht}
+        \begin{itemize}
+            \item $E(X) = n p$\pause
+            \item $Var(X) = n p (1 - p)$
+            \item $G_X(s) = (1 - p + p s)^n$
+            \item $M_X(s) = (1 - p + p e^s)^n$
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\subsection{Varianz}
+\begin{frame}{Varianz}
+    \begin{definition}
+        Die \b{Varianz} $Var(X)$ einer Zufallsvariable $X$ ist ein Maß der absoluten Abweichung einer Zufallsvariablen von ihrem Erwartungswert.
+        \begin{align*}
+            Var(X) &= E((X - E(X))^2)\pause \\
+                   &= E(X^2) - E(X)^2.
+        \end{align*}\pause
+        $SD(X) = \sqrt{Var(X)}$ heißt \b{Standardabweichung} von $X$.
+    \end{definition}\pause\par\padding
+    Eigenschaften der Varianz:\pause
+    \begin{itemize}
+        \item $Var(a \cdot X + b) = a^2 \cdot Var(X)$\pause
+        \item $Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n Var(X_i)$ falls $X_1, \dots, X_n$ unabhängig.
+    \end{itemize}
+\end{frame}
+
+\subsection{Geometrische Verteilung}
+\begin{frame}{Geometrische Verteilung}
+    \begin{definition}[$X \sim Geom(p)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{geometrisch} verteilt mit Parameter $p$ falls $X$ die \#Versuche, die zu einem Erfolg führen, in unabhängigen $Bern(p)$ Versuchen modelliert.
+    \end{definition}\pause
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+           \begin{align*}
+                f_X(k) = p (1 - p)^{k - 1}, k \in \mathbb{N}.
+            \end{align*}
+        \end{column}\pause
+        \begin{column}{0.5\textwidth}
+            \begin{align*}
+                F_X(k) = 1 - (1 - p)^{\lfloor k \rfloor}.
+            \end{align*}
+        \end{column}
+    \end{columns}\pause\par\padding
+    \begin{exampleblock}{Übersicht}
+        \begin{itemize}
+            \item $E(X) = \frac{1}{p}$\pause
+            \item $Var(X) = \frac{1 - p}{p^2}$\pause
+            \item $G_X(s) = \frac{p s}{1 - (1 - p) s}$
+            % \item $M_X(s) = \frac{p e^s}{1 - (1 - p) e^s}$ if $s < - ln(1 - p)$
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Gedächtnislosigkeit}
+        Durchführen von $x$ Versuchen, von denen keiner zum Erfolg führt, verändert nicht die Wahrscheinlichkeit dafür, dass die nächsten $y$ Versuche einen Erfolg beinhalten.\pause\par\padding
+        Diese Eigenschaft kann wie folgt formalisiert werden:
+        \begin{align*}
+            P(X > y + x | X > x) = P(X > y).
+        \end{align*}\pause\par\padding
+        Die geometrische Verteilung ist die \r{einzige} gedächtnislose diskrete Verteilung.
+    \end{block}
+\end{frame}
+
+\subsection{Poisson Verteilung}
+\begin{frame}{Poisson Verteilung}
+    \begin{definition}[$X \sim Po(\lambda)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{Poisson}-verteilt mit Parameter $\lambda$ falls $X$ die \#Ereignisse in einem festen Interval mit Rate $\lambda$ modelliert, wobei die Ereignisse unabhängig von der Zeit seit dem letzten Ereignis auftreten.
+    \end{definition}\pause
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+           \begin{align*}
+                f_X(k) = \frac{e^{- \lambda} \cdot \lambda^k}{k!}, k \in \mathbb{N}_0.
+            \end{align*}
+        \end{column}\pause
+        \begin{column}{0.5\textwidth}
+            \begin{align*}
+                F_X(k) = e^{- \lambda} \cdot \sum_{i=0}^{\lfloor k \rfloor} \frac{\lambda^i}{i!}.
+            \end{align*}
+        \end{column}
+    \end{columns}\pause\par\padding
+    \begin{exampleblock}{Übersicht}
+        \begin{itemize}
+            \item $E(X) = \lambda$\pause
+            \item $Var(X) = \lambda$\pause
+            \item $G_X(s) = exp(\lambda (s - 1))$
+            \item $M_X(s) = exp(\lambda (e^s - 1))$
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Poisson-Approximation der Binomialverteilung}
+        Sei $X \sim Bin(n, \lambda / n)$.\pause\par
+        Dann konvergiert die Verteilung von $X$ zu $Po(\lambda)$ mit $n \to \infty$\pause\par
+        (d.h. für kleine $\lambda / n$).
+    \end{block}
+\end{frame}
+
+\subsection{Wahrscheinlichkeitserzeugende Funktionen}
+\begin{frame}{Wahrscheinlichkeitserzeugende Funktionen}
+    \begin{definition}
+        Gegeben eine diskrete Zufallsvariable $X$ mit $X(S) \subseteq \mathbb{N}_0$ ist die \b{wahrscheinlichkeitserzeugende Funktion} definiert als
+        \begin{align*}
+            G_X(s) &= \sum_{x \in X(S)} s^x \cdot P(X=x)\pause \\
+                   &= E(s^X).
+        \end{align*}
+    \end{definition}\pause\par\padding
+    Die wahrscheinlichkeitserzeugende Funktion einer Zufallsvariable $X$ erzeugt die Dichtefunktion von $X$:
+    \begin{align*}
+        P(X = i) = \frac{G_X^{(i)}(s)}{i!}.
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    Eigenschaften von wahrscheinlichkeitserzeugenden Funktionen:\pause
+    \begin{itemize}
+        \item $E(X) = G_X'(1)$\pause
+        \item $Var(X) = G_X''(1) + G_X'(1) - (G_X'(1))^2$\pause
+        \item $G_{X + t}(s) = s^t \cdot G_X(s), t \in \mathbb{N}_0$\pause
+        \item $G_{X + Y}(s) = G_X(s) \cdot G_Y(s)$ falls $X,Y$ unabhängig.
+    \end{itemize}
+\end{frame}
+
+\subsection{Momenterzeugende Funktionen}
+\begin{frame}{Momenterzeugende Funktionen}
+    \begin{definition}
+       Gegeben eine Zufallsvariable $X$ ist die \b{momenterzeugende Funktion} definiert als
+        \begin{align*}
+            M_X(s) &= \sum_{x \in X(S)} e^{s x} \cdot P(X=x)\pause \\
+                   &= E(e^{s X})\pause \\
+                   &= \sum_{i=0}^{\infty} \frac{E(X^i)}{i!} \cdot s^i.
+        \end{align*}
+    \end{definition}\pause\par\padding
+    Die momenterzeugende Funktion einer Zufallsvariable $X$ erzeugt das $i$-te Moment von $X$:
+    \begin{align*}
+        E(X^i) = M_X^{(i)}(0).
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    Eigenschaften von momenterzeugenden Funktionen:\pause
+    \begin{itemize}
+        \item $M_X(s) = G_X(e^s)$ if $X(S) \subseteq \mathbb{N}_0$ \pause
+        \item $M_{X + Y}(s) = M_X(s) \cdot M_Y(s)$ falls $X,Y$ unabhängig.
+    \end{itemize}
+\end{frame}
+
+\subsection{Multivariate Verteilungen}
+\begin{frame}{Multivariate Verteilungen}
+    \begin{definition}
+        Eine \b{multivariate Verteilung} ist die Verteilung von zwei oder mehr Zufallsvariablen.
+        \begin{align*}
+            f_{X,Y}(x,y) = P(X = x, Y = y).
+        \end{align*}\pause\par\spadding
+        Die \b{Randverteilung} einer Zufallsvariablen kann aus einer multivariaten Verteilung gewonnen werden indem über alle anderen Zufallsvariablen summiert wird:
+        \begin{align*}
+            f_X(x) = \sum_{y \in Y(S)} f_{X,Y}(x,y).
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\subsection{Bedingte Verteilungen}
+\begin{frame}{Bedingte Verteilungen}
+    \begin{definition}
+        Gegeben eine multivariate Verteilung von zwei Zufallsvariablen $X$ und $Y$ ist die \b{bedingte Verteilung} von $X$ gegeben $Y$ die Verteilung von $X$ wenn der konkrete Wert von $Y$ bekannt ist.
+        \begin{align*}
+            f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)} = \frac{f_{Y|X}(y|x) \cdot f_X(x)}{f_Y(y)}.
+        \end{align*}\pause\par\spadding
+        Der \b{bedingte Erwartungswert} der Zufallsvariablen $X|Y=y$ ist der Erwartungswert der Verteilung $f_{X|Y=y}$:
+        \begin{align*}
+            E(X|Y=y) = \sum_{x \in X(S)} x \cdot f_{X|Y}(x|y).
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\subsection{Faltungen}
+\begin{frame}{Faltungen}
+    \begin{definition}
+        Seien die Zufallsvariablen $X$ und $Y$ be unabhängig und $Z = X + Y$. Dann gilt
+        \begin{align*}
+            f_Z(z) = \sum_{x \in X(S)} f_X(x) \cdot f_Y(z - x).
+        \end{align*}\pause
+        Die Herleitung der Verteilung einer Summe von Zufallsvariablen gegeben deren Randverteilungen bezeichnet man auch als \b{Faltung} oder \b{Konvolution}.
+    \end{definition}
+\end{frame}
+
+\subsection{Weitere Verteilungen}
+\begin{frame}{Weitere Verteilungen}
+    \begin{definition}[$X \sim HypGeom(r,a,b)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{hypergeometrisch} verteilt mit Parametern $r, a$ und $b$ falls $X$ die \# von gezogenen Objekten, die eine spezifische Eigenschaft haben, in $r$ Ziehungen ohne Zurücklegen aus $a + b$ Objekten modelliert webei $b$ Objekte die Eigenschaft aufweisen.\pause
+        \begin{align*}
+            f_X(x) = \frac{{b \choose x}{a \choose r - x}}{{a + b \choose r}}.
+        \end{align*}\pause
+        \begin{exampleblock}{Übersicht}
+            \begin{itemize}
+                \item $E(X) = r \cdot \frac{b}{a + b}$
+            \end{itemize}
+        \end{exampleblock}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}[$X \sim NegBin(n,p)$]
+        Eine diskrete Zufallsvariable $X$ ist \b{negativ binomialverteilt} mit Parametern $n$ und $p$ falls $X$ die \# von unabhängigen $Bern(p)$ Versuchen bevor dem $r$-ten Erfolg modelliert.\pause
+        \begin{align*}
+            f_Z(z) = {z - 1 \choose n - 1} p^n (1 - p)^{z - n}.
+        \end{align*}\pause
+        \begin{example}
+            Seien $X_1, \dots, X_n \sim Geom(p)$ unabhängig und gleichverteilt.\par
+            Dann gilt $Z = X_1 + \cdots + X_n \sim NegBin(n,p)$.
+        \end{example}
+    \end{definition}
+\end{frame}
+
+\subsection{Ungleichungen}
+\begin{frame}{Ungleichungen}
+    \begin{block}{Ungleichungen vs Approximationen}
+        \textit{Approximationen} erlauben uns komplexere Probleme zu modellieren, doch ist oft nicht klar wie genau die Approximation ist.\par\pause
+        \textit{Ungleichungen} erlauben uns definitive Aussagen (Schranken) bezüglich der Wahrscheinlichkeit von Ereignissen zu treffen.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}[Markov]
+        Gegeben eine Zufallsvariable $X \geq 0$ und $t > 0$
+        \begin{align*}
+            P(X \geq t) \leq \frac{E(X)}{t}.
+        \end{align*}
+    \end{definition}\pause
+    \begin{definition}[Chebyshev]
+        Gegeben eine Zufallsvariable $X$ und $t > 0$
+        \begin{align*}
+            P(|X - E(X)| \geq t) \leq \frac{Var(X)}{t^2}.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}[Chernoff]
+        Seien $X_1, \dots, X_n$ unabhängige, Bernoulli-verteilte Zufallsvariablen mit $X_i \sim Bern(p_i)$. Dann gelten die folgenden Ungleichungen für $X = \sum_{i=1}^n X_i$ und $\mu = E(X) = \sum_{i=1}^n p_i$.\pause
+        \begin{itemize}
+            \item $P(X \geq (1 + \delta) \mu) \leq \left(\frac{e^{\delta}}{(1 + \delta)^{1 + \delta}}\right)^{\mu}$ für alle $\delta > 0$;
+            \item $P(X \leq (1 - \delta) \mu) \leq \left(\frac{e^{- \delta}}{(1 - \delta)^{1 - \delta}}\right)^{\mu}$ für alle $0 < \delta < 1$\pause;
+            \item $P(X \geq (1 + \delta) \mu) \leq e^{- \mu \delta^2 / 3}$ für alle $0 < \delta \leq 1$;
+            \item $P(X \leq (1 - \delta) \mu) \leq e^{- \mu \delta^2 / 2}$ für alle $0 < \delta \leq 1$;
+            \item $P(|X - \mu| \geq \delta \mu) \leq 2 e^{- \mu \delta^2 / 3}$ für alle $0 < \delta \leq 1$;
+            \item $P(X \geq (1 + \delta) \mu) \leq \left(\frac{e}{1 + \delta}\right)^{(1 + \delta) \mu}$; and
+            \item $P(X \geq t) \leq 2^{-t}$ für alle $t \geq 2 e \mu$.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\section{Kontinuierliche Zufallsvariablen}
+\begin{frame}{Kontinuierliche Zufallsvariablen}
+    \begin{definition}
+        Eine \b{kontinuierliche Zufallsvariable} $X$ ist eine Funktion
+        \begin{align*}
+            X: S \to \mathbb{R}
+        \end{align*}
+        wobei $X(S)$ überabzählbar ist.\pause\par\spadding
+        Die Verteilung von $X$ ist definiert durch die \b{kontinuierliche Dichtefunktion} $f_X: \mathbb{R} \to \mathbb{R}_0^+$ mit der Eigenschaft
+        \begin{align*}
+            \int_{- \infty}^{+ \infty} f_X(x)\ dx = 1.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\subsection{Kontinuierliche Wahrscheinlichkeitsräume}
+\begin{frame}{Kontinuierliche Wahrscheinlichkeitsräume}
+    \begin{definition}
+        Ein \b{Ereignis} ist eine Menge $A = \bigcup_k I_k \subseteq \mathbb{R}$, die durch eine Vereinigung abzählbar vieler paarweise disjunkter Intervalle repräsentiert werden kann. Die Wahrscheinlichkeit von $A$ ist gegeben als
+        \begin{align*}
+            P(A) = \int_A f_X(x)\ dx = \sum_k \int_{I_k} f_X(x)\ dx.
+        \end{align*}
+    \end{definition}\pause\par\padding
+    \r{Die Wahrscheinlichkeit des Ereignisses $A = \{x\}, x \in \mathbb{R}$ ist immer $0$.}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Verteilungsfunktion}
+        Die Verteilungsfunktion einer kontinuierlichen Zufallsvariable $X$ ist gegeben als
+        \begin{align*}
+            F_X(x) &= P(X \leq x)\pause = P(X < x)\pause \\
+                   &= \int_{- \infty}^x f_X(t)\ dt.
+        \end{align*}\pause\par\spadding
+        Die Dichtefunktion von $X$ kann durch die Verteilungsfunktion von $X$ erhalten werden indem ihre Ableitung bezüglich $x$ gefunden wird:
+        \begin{align*}
+            f_X(x) = \frac{dF_X}{dx}.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Intervalle}
+        Nach dem Hauptsatz der Differential- und Integralrechnung, ist die Wahrscheinlichkeit von $X \in [a,b]$ gegeben als
+        \begin{align*}
+            P(a \leq X \leq b) = F_X(b) - F_X(a) = \int_a^b f_X(x)\ dx.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Erwartungswerte}
+        Der Erwartungswert einer kontinuierlichen Zufallsvariable $X$ ist gegeben als
+        \begin{align*}
+            E(X) = \int_{- \infty}^{+ \infty} x \cdot f_X(x)\ dx.
+        \end{align*}\pause\par\padding
+        LOTUS gilt auch im kontinuierlichen Fall:
+        \begin{align*}
+            E(g(X)) = \int_{- \infty}^{+ \infty} g(x) \cdot f_X(x)\ dx.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\subsection{Gleichverteilung}
+\begin{frame}{Gleichverteilung}
+    \begin{definition}[$X \sim Unif(a,b)$]
+        Eine kontinuierliche Zufallsvariable $X$ ist \b{gleichverteilt} mit Parametern $a$ und $b$ falls $X$ den Ausgang eines Experimentes modelliert, wo alle Ergebnisse, die in dem Intervall $[a,b]$ liegen, gleichwahrscheinlich sind.\pause
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+               \begin{align*}
+                    f_X(x) = \begin{cases}
+                        \frac{1}{b - a} & \text{für $x \in [a,b]$} \\
+                        0 & \text{sonst}
+                    \end{cases}.
+                \end{align*}
+            \end{column}\pause
+            \begin{column}{0.5\textwidth}
+                \begin{align*}
+                    F_X(x) = \begin{cases}
+                        0 & \text{für $x < a$} \\
+                        \frac{x - a}{b - a} & \text{für $x \in [a,b]$} \\
+                        1 & \text{für $x > b$}
+                    \end{cases}.
+                \end{align*}
+            \end{column}
+        \end{columns}\pause\par\padding
+        \begin{exampleblock}{Übersicht}
+            \begin{itemize}
+                \item $E(X) = \frac{a + b}{2}$\pause
+                \item $Var(X) = \frac{(a - b)^2}{12}$
+            \end{itemize}
+        \end{exampleblock}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Universalität der Gleichverteilung}
+        Sei $X \sim F$. Dann gilt $F(X) \sim Unif(0,1)$.\pause\par\spadding
+        Realisierungen einer Zufallsvariablen mit Verteilung $F$ und inverser Verteilungsfunktion $F^{-1}$ können mittels Realisierungen einer gleichverteilten Zufallsvariablen $Y$ simuliert werden: $F^{-1}(Y) \sim F$.
+    \end{block}
+\end{frame}
+
+\subsection{Normalverteilung}
+\begin{frame}{Normalverteilung}
+    \begin{definition}[$X \sim \mathcal{N}(\mu,\sigma^2)$]
+        \begin{align*}
+            f_X(x) = \frac{1}{\sigma \sqrt{2 \pi}} \cdot exp\left(-\frac{(x - \mu)^2}{2 \sigma^2}\right) =: \varphi(x;\mu,\sigma).
+        \end{align*}
+        \begin{align*}
+            F_X(x) =: \Phi(x;\mu,\sigma).
+        \end{align*}\pause
+        \begin{exampleblock}{Übersicht}
+            \begin{itemize}
+                \item $E(X) = \mu$\pause
+                \item $Var(X) = \sigma^2$\pause
+                \item $M_Z(s) = exp(\mu s + \frac{(\sigma s)^2}{2})$
+            \end{itemize}
+        \end{exampleblock}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    $\mathcal{N}(0,1)$ heißt \b{Standardnormalverteilung}.\pause\par\padding
+    \begin{block}{Lineare Transformation}
+        Sei $X \sim \mathcal{N}(\mu, \sigma^2)$. Dann ist für alle $a \in \mathbb{R} \setminus \{0\}$ und $b \in \mathbb{R}$ die Zufallsvariable
+        \begin{align*}
+            Y = a X + b
+        \end{align*}
+        normalverteilt mit Erwarungswert $a \mu + b$ und Varianz $a^2 \sigma^2$.
+    \end{block}\pause\par\padding
+    \begin{block}{Normierung}
+        Sei $X \sim \mathcal{N}(\mu, \sigma^2)$ und $Y = \frac{X - \mu}{\sigma}$. Dann gilt $Y \sim \mathcal{N}(0,1)$.\pause\par
+        Die Zufallsvariable $Y$ heißt auch \b{normiert}.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Additivität}
+        Seien $X_1, \dots, X_n$ unabhängig und normalverteilt mit Parametern $\mu_i, \sigma_i$. Dann ist die Zufallsvariable
+        \begin{align*}
+            Z = a_1 X_1 + \cdots + a_n X_n
+        \end{align*}
+        normalverteilt mit Erwartungswert $a_1 \mu_1 + \cdots a_n \mu_n$ und Varianz $a_1^2 \sigma_1^2 + \cdots + a_n^2 \sigma_n^2$.
+    \end{block}\pause\par\padding
+    \begin{block}{Normal-Approximation der Binomialverteilung}
+        Sei $X \sim Bin(n,p)$ mit Verteilungsfunktion $F_n(t)$. Dann kann
+        \begin{align*}
+            F_n(t) \approx \Phi\left(\frac{t - n p}{\sqrt{p (1 - p) n}}\right)
+        \end{align*}
+        als Approximation verwendet werden falls $n p \geq 5$ und $n (1 - p) \geq 5$.
+    \end{block}
+\end{frame}
+
+\subsection{$\gamma$-Quantil}
+\begin{frame}{$\gamma$-Quantil}
+    \begin{definition}
+        Sei $X$ eine kontinuierliche Zufallsvariable mit Verteilungs $F_x$. Eine Zahl $x_{\gamma}$ mit
+        \begin{align*}
+            F_X(x_{\gamma}) = \gamma
+        \end{align*}
+        heißt \b{$\gamma$-Quantil} von $X$ bzw. der Verteilung $F_X$.
+    \end{definition}\pause\par\padding
+    \begin{definition}
+        Für die Standradnormalverteilung bezeichnet $z_{\gamma}$ das $\gamma$-Quantil.
+    \end{definition}
+\end{frame}
+
+\subsection{Exponentialverteilung}
+\begin{frame}{Exponentialverteilung}
+    \begin{definition}[$X \sim Exp(\lambda)$]
+        Eine kontinuierliche Zufallsvariable $X$ ist \b{exponentialverteilt} mit Parameter $\lambda$ falls $X$ die Zeit zwischen Ereignissen eines Poisson-Prozesses modelliert.\pause
+        \begin{columns}
+            \begin{column}{0.5\textwidth}
+               \begin{align*}
+                    f_X(x) = \lambda e^{- \lambda x}.
+                \end{align*}
+            \end{column}\pause
+            \begin{column}{0.5\textwidth}
+                \begin{align*}
+                    F_X(x) = 1 - e^{- \lambda x}.
+                \end{align*}
+            \end{column}
+        \end{columns}\pause\par\padding
+        \begin{exampleblock}{Übersicht}
+            \begin{itemize}
+                \item $E(X) = \frac{1}{\lambda}$\pause
+                \item $Var(X) = \frac{1}{\lambda^2}$\pause
+                \item $M_X(s) = \frac{\lambda}{\lambda - s}, s < \lambda$
+            \end{itemize}
+        \end{exampleblock}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Skalierung}
+        Sei $X \sim Exp(\lambda)$. Falls $a > 0$, dann ist $Y = a X$ exponentialverteilt mit dem Parameter $\lambda / a$.
+    \end{block}\pause\par\padding
+    \begin{block}{Gedächtnislosigkeit}
+        Die Exponentialverteilung ist die \r{einzige} gedächtnislose kontinuierliche Verteilung. Daher ist jede kontinuierliche Zufallsvariable $X$ für die
+        \begin{align*}
+            P(X > y + x | X > x) = P(X > y)
+        \end{align*}
+        für all $x,y > 0$ gilt, exponentialverteilt.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Warten auf mehrere Ereignisse}
+        Seien $X_1, \dots, X_n$ unabhängige, exponentialverteilte Zufallsvariablen mit Parametern $\lambda_1, \dots, \lambda_n$. Dann ist $X = min \{X_1, \dots, X_n\}$ exponentialverteilt mit Parameter $\lambda_1 + \cdots + \lambda_n$.
+    \end{block}\pause\par\padding
+    \begin{block}{Exponential-Approximation der geometrischen Verteilung}
+        Sei $X_n \sim Geom(\lambda / n)$. Die Verteilung der skalierten geometrisch verteilten Zufallsvariablen $Y_n = \frac{1}{n} X_n$ konvergiert mit $n \to \infty$ zu einer Exponentialverteilung mit Parameter $\lambda$.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Poisson-Prozess}
+        Seien $T_1, T_2, \ldots \sim Exp(\lambda)$ unabhängige und gleichverteilte Zufallsvariablen, die die Zeit zwischen dem $(i - 1)$-ten und dem $i$-ten Ereignis modellieren.\pause\par
+        Für $t > 0$ definieren wir
+        \begin{align*}
+            X(t) = max \{n \in \mathbb{N} \mid T_1 + \cdots + T_n \leq t\},
+        \end{align*}
+        das die Anzahl der Ereignisse repräsentiert, die bis zum Zeitpunkt $t$ augetreten sind.\pause\par
+        Dann ist $X(t)$ Poisson-verteilt mit Parameter $t \lambda$.
+    \end{block}
+\end{frame}
+
+\subsection{Multivariate Verteilungen}
+\begin{frame}{Multivariate Verteilungen}
+    \begin{block}{Randverteilungen finden}
+        Gegeben eine multivariate Verteilung $f_{X,Y}$ kann die Randverteilung $f_X$ wie folgt gefunden werden:
+        \begin{align*}
+            f_X(x) = \int_{- \infty}^{+ \infty} f_{X,Y}(x,y)\ dy.
+        \end{align*}
+    \end{block}\pause\par\padding
+    \begin{block}{Wahrscheinlichkeiten berechnen}
+        Gegeben ein Ereignis $A \in \mathbb{R}^2$. Die Wahrscheinlichkeit von $A$ ist die Fläche unter der Dichtefunktion von $X$:
+        \begin{align*}
+            P(A) = \iint\limits_{A} f_{X,Y}(x,y)\ dx\ dy.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Dichtefunktionen finden}
+        Gegeben eine Verteilungsfunktion $F_{X,Y}$ kann die Dichtefunktion $f_{X,Y}$ wie folgt gefunden werden:
+        \begin{align*}
+            f_{X,Y}(x,y) = \frac{\partial^2 F_{X,Y}}{\partial x \partial y}(x,y).
+        \end{align*}
+    \end{block}\pause\par\padding
+    \begin{block}{Verteilungsfunktionen finden}
+        Gegeben eine Dichtefunktion $f_{X,Y}$ kann die Verteilungsfunktion $F_{X,Y}$ wie folgt gefunden werden:
+        \begin{align*}
+            F_{X,Y}(x,y) = \int_{- \infty}^y \int_{- \infty}^x f_{X,Y}(u,v)\ du\ dv.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\subsection{Weitere Verteilungen}
+\begin{frame}{Weitere Verteilungen}
+    \begin{definition}[$X \sim Lognormal(\mu, \sigma^2)$]
+        Eine kontinuierliche Zufallsvariable $X$ ist \b{logarithmisch normalverteilt} mit Parametern $\mu$ und $\sigma^2$ falls $Y = ln(X) \sim \mathcal{N}(\mu, \sigma^2)$.\pause
+        \begin{align*}
+            f_X(x) = \frac{1}{x \sigma \sqrt{2 \pi}} \cdot exp\left(-\frac{(ln(x) - \mu)^2}{2 \sigma^2}\right).
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\section{Induktive Statistik}
+\subsection{Schätzer}
+\begin{frame}{Schätzer}
+    \b{Induktive Statistik} versucht mittels gemessener Größen auf zugrundeliegende Gesetzmäßigkeiten zu schließen.\pause\par
+    Um Daten zu generieren, werden $n$ unabhängige Kopien eines identischen Experimentes durchgeführt, das durch die Zufallsvariable $X$ modelliert wird. Eine Messung, die aus einem dieser Experimente resultiert, heißt \b{Stichprobe}.\pause\par
+    Jede Stichprobe wird durch eine separate Zufallsvariable $X_i$ repräsentiert, die als \b{Stichprobenvariable} bezeichnet wird.\pause\par\padding
+    \begin{definition}
+        Ein \b{Schätzer} ist eine Zufallsvariable die mehrere Stichprobenvariablen kombiniert.\pause\par\spadding
+        Der \b{Bias} eines Schätzers $U$ ist gegeben als $E(U - \theta)$.\pause\par\spadding
+        Ein Schätzer $U$ ist \b{erwartungstreu} bezüglich dem Parameter $\theta$ falls $E(U) = \theta$\par
+        (d.h. der Bias des Schätzers ist Null).
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Das \b{Stichprobenmittel} $\bar{X}$ ist ein erwartungstreuer Schätzer für $E(X)$.
+        \begin{align*}
+            \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i.
+        \end{align*}
+    \end{definition}\pause\par\padding
+    \begin{definition}
+        Die \b{Stichprobenvarianz} $S^2$ ist ein erwartungstreuer Schätzer für $Var(X)$.
+        \begin{align*}
+            S = \sqrt{\frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2}.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Der \b{mean squared error} ist ein Gütemaß für einen Schätzer $U$.
+        \begin{align*}
+            MSE(U) = E((U - \theta)^2).
+        \end{align*}\pause
+        Falls $U$ erwartungstreu ist, so gilt $MSE(U) = Var(U)$.\pause\par\spadding
+        Ein Schätzer $A$ ist \b{effizienter} als ein anderer Schätzer $B$ falls $MSE(A) < MSE(B)$.\par\pause\spadding
+        Ein Schätzer $U$ ist \b{konsistent im quadratischen Mittel} fallse $MSE(U) \xrightarrow{n \to \infty} 0.$
+    \end{definition}
+\end{frame}
+
+\subsection{Maximum-Likelihood-Schätzer}
+\begin{frame}{Maximum-Likelihood-Schätzer}
+    Die \b{Maximum-Likelihood-Konstruktion} ist ein Verfahren zur Konstruktion eines Schätzers für Parameter von Verteilungen.\pause\par\padding
+    Gegeben Stichproben $\overrightarrow{X} = (X_1, \dots, X_n)$ finde einen Maximum-Likelihood-Schätzer für $X$ mit Parameter $\theta$. $\overrightarrow{x} = (x_1, \dots, x_n)$ kombinieren alle Stichprobenwerte.
+    \begin{enumerate}
+        \item konstruiere $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
+        \item finde $\theta$, das $L$ maximiert
+        \item der Wert für $\theta$, der $L$ maximiert, ist ein Maximum-Likelihood-Schätzer für $\theta$
+    \end{enumerate}
+\end{frame}
+
+\subsection{Gesetz der großen Zahlen}
+\begin{frame}{Gesetz der großen Zahlen}
+    Das Gesetz der großen Zahlen besagt, dass das Stichprobenmittel $\bar{X}$ mit Wahrscheinlichkeit $1$ gegen den Erwartungswert $E(X)$ konvergiert während sich die Stichprobengröße $n$ Unendlich annähert.\pause
+    \begin{align*}
+        P(|\bar{X} - E(X)| \geq \delta) \leq \epsilon
+    \end{align*}
+    für $\delta, \epsilon > 0$ und $n \geq \frac{Var(X)}{\epsilon \delta^2}$.
+\end{frame}
+
+\subsection{Zentraler Grenzwertsatz}
+\begin{frame}{Zentraler Grenzwertsatz}
+    Der zentrale Grenzwertsatz besagt, dass die normierte Summe von Stichprobenvariablen sich einer Standardnormalverteilung annähert  während sich die Stichprobengröße $n$ Unendlich annähert selbst wenn die zugrundeliegende Verteilung nicht die Normalverteilung ist.\pause
+    \begin{align*}
+        \frac{\sum_{i=1}^n X_i - n \mu}{\sigma \sqrt{n}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}
+    \end{align*}
+    für $X_i$ i.i.d..\pause\par\spadding
+    Equivalent:
+    \begin{align*}
+        \sqrt{n} \left(\frac{\bar{X} - \mu}{\sigma}\right) \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}.
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Grenzwertsatz nach de Moivre}
+        Der Grenzwertsatz nach de Moivre ist ein Spezialfall des zentralen Grenzwertsatzes und sagt aus, dass die Normalverteilung als Approximation für die Binomialverteilung verwendet werden kann.\pause\par\spadding
+        Seien $X_1, \dots, X_n \sim Bern(p)$ unabhängig und gleichverteilt sowie $H_n = X_1 + \cdots + X_n$. Dann gilt
+        \begin{align*}
+            H_n^* = \frac{H_n - n p}{\sqrt{n p (1 - p)}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}.
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\subsection{Konfidenzintervalle}
+\begin{frame}{Konfidenzintervalle}
+    Oft werden zwei Schätzer verwendet, um die abzuschätzende Größe aus beiden Richtungen abzuschätzen.\pause
+    Die beiden Schätzer $U_1$ und $U_2$ werden so gewählt, dass
+    \begin{align*}
+        P(U_1 \leq \theta \leq U_2) \geq 1 - \alpha.
+    \end{align*}\pause
+    Die Wahrscheinlichkeit $1 - \alpha$ heißt \b{Konfidenzniveau}.\pause\par\padding
+    Berechnen wir für konkrete Stichproben die Schätzer $U_1$ und $U_2$ und erwarten $\theta \in [U_1, U_2]$, dann liegt die Fehlerwahrscheinlichkeit bei $\alpha$. $[U_1, U_2]$ ist ein \b{Konfidenzintervall}.\pause\par\spadding
+    Oft wird ein einziger Schätzer $U$ verwendet, um das symmetrische Konfidenzintervall $[U - \delta, U + \delta]$ zu definieren.
+\end{frame}
+
+\subsection{Hypothesentests}
+\begin{frame}{Hypothesentests}
+    Gegeben Stichprobenvariablen $\overrightarrow{X} = (X_1, \dots, X_n)$ und Stichprobenwerte $\overrightarrow{x} = (x_1, \dots, x_n)$ entscheide, ob eine Hypothese akzeptiert oder abgelehnt werden soll.\pause\par\padding
+    $K = \{\overrightarrow{x} \in \mathbb{R}^n \mid \overrightarrow{x} \text{ resultiert in Ablehnung der Hypothese}\}$ heißt \b{kritischer Bereich} (oder \b{Ablehnungsbereich}) eines Tests.\pause\par\padding
+    $K$ wird basierend auf den konkreten Werten der \b{Testvariablen} $T$ gewählt, die sich aus den Stichprobenvariablen zusammensetzt.\pause\par\padding
+    Ein Test heißt \b{einseitig} falls $K$ ein halboffenes Intervall in $T(S)$ ist und \b{beidseitig} falls $K$ ein geschlossenes Intervall in $T(S)$ ist.
+\end{frame}
+
+\begin{frame}
+    $H_0$ ist die Hypothese auf die getestet wird, auch als \b{Nullhypothese} bezeichnet.\par
+    $H_1$ ist die \b{Alternative}. $H_1$ ist \b{trivial} falls es die einfache Negation von $H_0$ ist.\pause\par\padding
+    \begin{block}{Fehler}
+        \begin{itemize}
+            \item \b{Fehler 1. Art} oder \b{$\alpha$-Fehler} oder \b{Signifikanzniveau}\par
+                $H_0$ gilt, aber $\overrightarrow{x} \in K$
+                \begin{align*}
+                    \alpha = \sup_{p \in H_0} P_p(T \in K).
+                \end{align*}\pause
+            \item \b{type 2 error} oder \b{$\beta$-Fehler}\par
+                $H_1$ gilt, aber $\overrightarrow{x} \not\in K$
+                \begin{align*}
+                    \beta = \sup_{p \in H_1} P_p(T \not\in K).
+                \end{align*}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    Die \b{Gütefunktion} $g$ beschreibt die Wahrscheinlichkeit, dass ein Test die Nullhypothese ablehnt.
+    \begin{align*}
+        g(p) = P_p(T \in K).
+    \end{align*}
+\end{frame}
+
+\section{Markovketten}
+\subsection{Stochastische Prozesse}
+\subsection{Markov-Eigenschaft}
+\subsection{Repräsentationen}
+\subsection{Stationäre Verteilung}
+\subsection{Eigenschaften}
+
+\end{document}
