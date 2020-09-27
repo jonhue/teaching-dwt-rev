@@ -20,4 +20,4 @@ Das Repetitorium wird in fünf Sessions vom 28. September bis zum 2. Oktober geh
 * [Handout (English)](https://jonhue.github.io/teaching-dwt-rev/handout-en.pdf)
 * [Slides (English)](https://jonhue.github.io/teaching-dwt-rev/en.pdf) (with animations)
 
-[Übungsaufgaben](https://jonhue.github.io/teaching-dwt-rev/en.pdf) (with animations)
+[Übungsaufgaben](https://jonhue.github.io/teaching-dwt-rev/problems)
