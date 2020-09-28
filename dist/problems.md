@@ -59,13 +59,14 @@ Dies ist eine Übersicht an Übungsaufgaben gegliedert nach Themenbereichen.
 
 ## Diskrete Zufallsvariablen
 
-* Blatt 4 T1 (1)
-* Blatt 4 H1
-* Blatt 4 H4 (1)
-* Blatt 5 H3
 * W14 A1 (1)
 * W14 A3
 * E20 A2
+
+### Dichten
+
+* Blatt 4 H4 (1)
+* Blatt 5 H3 (1)
 
 ### Unabhängigkeit
 
@@ -76,6 +77,7 @@ Dies ist eine Übersicht an Übungsaufgaben gegliedert nach Themenbereichen.
 
 * Blatt 3 T2 (1)
 * Blatt 3 T3 (1)
+* Blatt 5 H3 (2)
 * W15 A1 (2)
 
 ### Indikatorvariablen
@@ -122,6 +124,9 @@ Dies ist eine Übersicht an Übungsaufgaben gegliedert nach Themenbereichen.
 
 ### Multivariate- und Randverteilungen
 
+* Blatt 4 T1 (1)
+* Blatt 4 H1
+* Blatt 5 H3 (3)
 * W16 A2 (2,3)
 
 ### Bedingte Verteilungen
