@@ -24,7 +24,7 @@
 % \newtheorem{algorithm}[theorem]{Algorithm}
 % \newtheorem{idea}[theorem]{Idea}
 
-\usepackage[german]{babel}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{aligned-overset}
@@ -56,7 +56,7 @@
 }
 \makeatother
 
-\title[DWT Repetitorium]{Diskrete Wahrscheinlichkeitstheorie \\ Repetitorium}
+\title[DWT revision course]{Discrete Probability Theory \\ revision course}
 \author{Jonas Hübotter}
 
 \begin{document}
@@ -75,31 +75,31 @@
      \end{frame}
   }
 
-\section{Zählen}
+\section{Counting}
 
-\subsection{Ergebnismengen und Ereignisse}
-\begin{frame}{Ergebnismengen und Ereignisse}
+\subsection{Sample spaces and events}
+\begin{frame}{Sample spaces and events}
     \begin{definition}
-        Eine \b{Ergebnismenge} ist die Menge aller möglichen Elementarereignisse eines Experiments.
+        A \b{sample space} is the set of all possible outcomes of an experiment.
     \end{definition}\pause
     \begin{definition}
-        Ein \b{Ereignis} ist eine Teilmenge der Ergebnismenge.
+        An \b{event} is a subset of the sample space.
     \end{definition}\pause\padding
-    Naive Definition der Wahrscheinlichkeit eines Ereignisses $A$ in der Ergebnismenge $S$:\pause
+    Naive definition of probability of an event $A$ in sample space $S$:\pause
     \begin{align*}
-        P(A) = \frac{\text{\# günstige Ergebnisse}}{\text{\# mögliche Ergebnisse}} = \frac{|A|}{|S|}
+        P(A) = \frac{\text{\# favorable outcomes}}{\text{\# possible outcomes}} = \frac{|A|}{|S|}
     \end{align*}\pause
-    Annahmen:\pause
+    Assumptions:\pause
     \begin{itemize}
-        \item alle Ergebnisse gleich wahrscheinlich\pause
-        \item endlicher Ergebnisraum
+        \item all outcomes equally likely\pause
+        \item finite sample space
     \end{itemize}
 \end{frame}
 
-\subsection{Abzählen von Mengen}
-\begin{frame}{Abzählen von Mengen}
-    \begin{block}{Multiplikationsregel}
-        Betrachte $i \in [m]$ Experimente mit $n_i$ möglichen Ergebnissen. Dann ist die Gesamtanzahl an möglichen Ergebnissen
+\subsection{Counting sets}
+\begin{frame}{Counting sets}
+    \begin{block}{Multiplication rule}
+        Consider $i \in [m]$ experiments with $n_i$ possible outcomes. Then the overall number of possible outcomes is
         \begin{align*}
             \prod_{i=1}^m n_i.
         \end{align*}
@@ -107,158 +107,158 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Kombinatorik-Tabelle}
-        Gegeben $n$ Objekte, wähle $k$ Objekte.
+    \begin{block}{Sampling table}
+        Given $n$ objects, select $k$ objects.
         \begin{block}{}\begin{tabularx}{\textwidth}{X||X|X}
-            & Reihenfolge & $\neg$ Reihenfolge \\ \hline\hline
-            \onslide<1->{Zurücklegen} & \onslide<2->{$n^k$} & \onslide<5->{$n + k - 1 \choose k$}\\
-            \onslide<1->{$\neg$ Zurücklegen} & \onslide<4->{$\frac{n!}{k!}$} & \onslide<3->{$n \choose k$}
+            & order & $\neg$ order \\ \hline\hline
+            \onslide<1->{replacement} & \onslide<2->{$n^k$} & \onslide<5->{$n + k - 1 \choose k$}\\
+            \onslide<1->{$\neg$ replacement} & \onslide<4->{$\frac{n!}{k!}$} & \onslide<3->{$n \choose k$}
         \end{tabularx}\end{block}
     \end{block}
 \end{frame}
 
-\section{Wahrscheinlichkeit}
-\subsection{$\sigma$-Algebren}
-\begin{frame}{$\sigma$-Algebren}
+\section{Probability}
+\subsection{$\sigma$-algebras}
+\begin{frame}{$\sigma$-algebras}
     \begin{definition}
-        Gegeben die Ergebnismenge $S$. Die Menge $\mathcal{A} \subseteq \mathcal{P}(S)$ ist eine \b{$\sigma$-Algebra} über $S$ wenn die folgenden Eigenschaften erfüllt sind:
+        Given the set $S$. The set $\mathcal{A} \subseteq \mathcal{P}(S)$ is a \b{$\sigma$-algebra} over $S$ if the following properties are satisfied:
         \begin{itemize}\pause
             \item $S \in \mathcal{A}$\pause;
-            \item falls $A \in \mathcal{A}$, dann $\bar{A} \in \mathcal{A}$\pause; und
+            \item if $A \in \mathcal{A}$, then $\bar{A} \in \mathcal{A}$\pause; and
             \item $\forall n \in \mathbb{N}.\ A_n \in \mathcal{A} \implies \bigcup_{n=1}^{\infty} A_n \in \mathcal{A}$.
         \end{itemize}
     \end{definition}\pause\padding
-    \r{Warum benötigen wir $\sigma$-Algebren?}\pause\par
-    Um Ereignisse im Kontext eines Wahrscheinlichkeitsraumes beschreiben zu können.
+    \r{Why do we need $\sigma$-algebras?}\pause\par
+    To describe events in the context of a probability space.
 \end{frame}
 
-\subsection{Wahrscheinlichkeitsräume}
-\begin{frame}{Wahrscheinlichkeitsräume}
+\subsection{Probability spaces}
+\begin{frame}{Probability spaces}
     \begin{definition}
-        Gegeben die Ergebnismenge $S$ und die $\sigma$-Algebra $\mathcal{A}$ über $S$.\pause\ Die Funktion
+        Given the set $S$ and the $\sigma$-algebra $\mathcal{A}$ over $S$.\pause\ The function
         \begin{align*}
             P: \mathcal{A} \to [0,1]
         \end{align*}
-        ist ein \b{Wahrscheinlichkeitsmaß} auf $\mathcal{A}$ falls die \b{Kolmogorov Axiome} erfüllt sind:
+        is a \b{probability measure} on $\mathcal{A}$ if the \b{Kolmogorov axioms} are satisfied:
         \begin{itemize}\pause
             \item $P(S) = 1$;\pause
-            \item $P(\bigcup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i)$ falls $\forall i \neq j.\ A_i \cap A_j = \emptyset$.
+            \item $P(\bigcup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i)$ if $\forall i \neq j.\ A_i \cap A_j = \emptyset$.
         \end{itemize}
     \end{definition}
 \end{frame}
 
 \begin{frame}
     \begin{definition}
-        Für ein Ereigniss $A \in \mathcal{A}$, $P(A)$ ist die \b{Wahrscheinlichkeit} von $A$.
+        For an event $A \in \mathcal{A}$, $P(A)$ is the \b{probability} of $A$.
     \end{definition}\pause
     \begin{definition}
-        Ein \b{Wahrscheinlichkeitsraum} besteht aus
+        A \b{probability space} consists of
         \begin{itemize}
-            \item einer Ergebnismenge $S$;
-            \item einer $\sigma$-Algebra $\mathcal{A}$ über $S$; und
-            \item einem Wahrscheinlichkeitsmaß $P$ auf $\mathcal{A}$.
+            \item a sample space $S$;
+            \item a $\sigma$-algebra $\mathcal{A}$ over $S$; and
+            \item a probability measure $P$ on $\mathcal{A}$.
         \end{itemize}
     \end{definition}
 \end{frame}
 
 \begin{frame}
-    Für einen Wahrscheinlichkeitsraum gelten die folgenden Eigenschaften:\pause
+    For a probability space the following properties hold:\pause
     \begin{itemize}
         \item $P(\emptyset) = 0$\pause
         \item $P(S) = 1$\pause
-        \item $0 \leq P(A) \leq 1$ für alle $A \in \mathcal{A}$\pause
-        \item $P(\bar{A}) = 1 - P(A)$ für alle $A \in \mathcal{A}$\pause
-        \item falls $A, B \in \mathcal{A}$ und $A \subseteq B$, dann $P(A) \leq P(B)$
+        \item $0 \leq P(A) \leq 1$ for all $A \in \mathcal{A}$\pause
+        \item $P(\bar{A}) = 1 - P(A)$ for all $A \in \mathcal{A}$\pause
+        \item if $A, B \in \mathcal{A}$ and $A \subseteq B$, then $P(A) \leq P(B)$
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    Weiterhin gilt die \b{Siebformel}:
+    Also the \b{principle of inclusion-exclusion} holds:
     \begin{align*}
         P(\bigcup_{i=1}^n A_i) = \sum_{I \in [n], I \neq \emptyset} (-1)^{|I| + 1} \cdot P(\bigcap_{i \in I} A_i).
     \end{align*}\pause\par\padding
-    Und die \b{Bool'sche Ungleichung}:
+    And \b{Boole's inequality} holds:
     \begin{align*}
         P(\bigcup_{i=1}^n A_i) \leq \sum_{i=1}^n P(A_i).
     \end{align*}
 \end{frame}
 
-\subsection{Multivariate- und Randwahrscheinlichkeiten}
-\begin{frame}{Multivariate- und Randwahrscheinlichkeiten}
-    Eine \b{Randwahrscheinlichkeit} ist die Wahrscheinlichkeit eines einzelnen Ereignisses unabhängig von anderen Ereignissen.\pause\par\spadding
-    Eine \b{multivariate Wahrscheinlichkeit} ist die Wahrscheinlichkeit von zwei oder mehreren Ereignissen gleichzeitig aufzutreten:
+\subsection{Joint and marginal probabilities}
+\begin{frame}{Joint and marginal probabilities}
+    A \b{marginal probability} is the probability of a single event irrespective of other events.\pause\par\spadding
+    A \b{joint probability} is the probability of two or more events occurring simultaneously:
     \begin{align*}
         P(A,B) = P(A \cap B).
     \end{align*}
 \end{frame}
 
-\section{Bedingte Wahrscheinlichkeit}
-\subsection{A-priori und a-posteriori}
-\begin{frame}{A-priori und a-posteriori}
-    Bedingte Wahrscheinlichkeit \textit{aktualisiert} die Wahrscheinlichkeit eines Ereignisses $A$ gegeben eine neue Information $B$.\pause\par\padding
-    $P(A)$ heißt \b{a-priori} und $P(A|B)$ \b{a-posteriori} Wahrscheinlichkeit.\pause\par\padding
+\section{Conditional probability}
+\subsection{Prior and posterior}
+\begin{frame}{Prior and posterior}
+    Conditional probability \textit{updates} the probability of an event $A$ given some new information $B$.\pause\par\padding
+    $P(A)$ is called the \b{prior} and $P(A|B)$ the \b{posterior} probability.\pause\par\padding
     \begin{align*}
         P(A|B) = \frac{P(A,B)}{P(B)}.
     \end{align*}
-    Die a-posteriori Wahrschenilichkeit ist die multivariate Wahrscheinlichkeit des Ereignisses $A$ und der Information $B$ relativ zu der Wahrscheinlichkeit der Information $B$.
+    The posterior is the joint probability of the event $A$ and the information $B$ relative to the probability of the information $B$.
 \end{frame}
 
-\subsection{Unabhängigkeit}
-\begin{frame}{Unabhängigkeit}
-    Zwei Ereignisse sind \b{unabhängig} wenn das Auftreten des einen Ereignisses nicht die Wahrscheinlichkeit des anderen Ereignisses beeinflusst.\pause\par\padding
-    Zwei Ereignisse $A$ und $B$ sind unabhängig\par
+\subsection{Independence}
+\begin{frame}{Independence}
+    Two events are \b{independent} if the occurrence of one event does not affect the probability of occurrence of the other event.\pause\par\padding
+    Two events $A$ and $B$ are independent\par
     $\iff P(A|B) = P(A)$\pause\par
     $\iff P(B|A) = P(B)$\pause\par
     $\iff P(A,B) = P(A) P(B)$.
 \end{frame}
 
-\subsection{Konditionierung}
-\begin{frame}{Konditionierung}
-    Einige Eigenschaften folgen direkt aus der Definition der bedingten Wahrscheinlichkeit:\pause
+\subsection{Conditioning}
+\begin{frame}{Conditioning}
+    Some properties immediately follow from the definition of conditional probability:\pause
     \begin{itemize}
-        \item $P(A,B) = P(B) P(A|B)\pause = P(A) P(B|A)$,\par da $A \cap B = B \cap A$\pause
-        \item $P(A_1, \dots, A_n) = P(A_1) P(A_2|A_1) P(A_3|A_1, A_2) \cdots P(A_n|A_1, \dots, A_{n-1})$ (\b{Multiplikationssatz})\pause
-        \item $P(A|B) = \frac{P(B|A) P(A)}{P(B)}$ (\b{Satz von Bayes})\pause
-        \item $P(A) = P(A,B) + P(A,\bar{B}) = P(A|B) P(B) + P(A|\bar{B}) P(\bar{B})$ (\b{Gesetz der totalen Wahrscheinlichkeit})
+        \item $P(A,B) = P(B) P(A|B)\pause = P(A) P(B|A)$\par as $A \cap B = B \cap A$\pause
+        \item $P(A_1, \dots, A_n) = P(A_1) P(A_2|A_1) P(A_3|A_1, A_2) \cdots P(A_n|A_1, \dots, A_{n-1})$ (\b{multiplication rule})\pause
+        \item $P(A|B) = \frac{P(B|A) P(A)}{P(B)}$ (\b{Bayes' rule})\pause
+        \item $P(A) = P(A,B) + P(A,\bar{B}) = P(A|B) P(B) + P(A|\bar{B}) P(\bar{B})$ (\b{law of total probability})
     \end{itemize}
 \end{frame}
 
-\section{Diskrete Zufallsvariablen}
-\begin{frame}{Diskrete Zufallsvariablen}
+\section{Discrete random variables}
+\begin{frame}{Discrete random variables}
     \begin{definition}
-        Eine \b{Zufallsvariable} $X$ ist eine Funktion
+        A \b{random variable} $X$ is a function
         \begin{align*}
             X: S \to \mathbb{R}.
         \end{align*}\pause
-        Eine Zufallsvariable heißt \b{diskret} wenn ihr Urbild $S$ endlich oder abzählbar unendlich ist.
+        A random variable is \b{discrete} if its domain $S$ is finite or countable infinite.
     \end{definition}\pause\padding
-    Der Wertebereich einer diskreten Zufallsvariable
+    The range of a discrete random variable
     \begin{align*}
         X(S) = \{x \in \mathbb{R}.\ \exists A \in S.\ X(A) = x\}
     \end{align*}
-    ist ebenfalls abzählbar.
+    is also discrete.
 \end{frame}
 
-\subsection{Verteilungsfunktion}
-\begin{frame}{Verteilungsfunktion}
-    $X \leq x$ ist ein Ereignis.\pause\par\padding
+\subsection{Cumulative Distribution Function}
+\begin{frame}{Cumulative Distribution Function}
+    $X \leq x$ is an event.\pause\par\padding
     \begin{definition}
-        Die \b{Verteilungsfunktion} einer Zufallsvariable $X$ ist definiert als $F_X(x) = P(X \leq x) \in [0,1]$.
+        The \b{cumulative distribution function} of a random variable $X$ is defined as $F_X(x) = P(X \leq x) \in [0,1]$.
     \end{definition}\pause\par\spadding
-    Eigenschaften von Verteilungsfunktionen:\pause
+    Properties of CDFs:\pause
     \begin{itemize}
-        \item monoton wachsend\pause
-        \item rechtsseitig stetig\pause
+        \item monotonically increasing\pause
+        \item right-continuous\pause
         \item $F_X(x) \xrightarrow{x \to - \infty} 0$\pause
         \item $F_X(x) \xrightarrow{x \to \infty} 1$
     \end{itemize}\pause\padding
-    Daher, $P(a < X \leq b) = F_X(b) - F_X(a)$.
+    Therefore, $P(a < X \leq b) = F_X(b) - F_X(a)$.
 \end{frame}
 
-\subsection{Diskrete Dichtefunktion}
-\begin{frame}{Diskrete Dichtefunktion}
+\subsection{Probability Mass Function}
+\begin{frame}{Probability Mass Function}
     \begin{definition}
-        Die \b{diskrete Dichtefunktion} einer diskreten Zufallsvariable $X$ ist definiert als $f_X(x) = P(X = x) \in [0,1]$ wobei
+        The \b{probability mass function} of a discrete random variable $X$ is defined as $f_X(x) = P(X = x) \in [0,1]$ where
         \begin{align*}
             \sum_{x \in X(S)} f_X(x) = 1.
         \end{align*}
@@ -266,30 +266,30 @@
 \end{frame}
 
 \begin{frame}
-    Die Verteilungsfunktion von $X$ kann von der Dichtefunktion von $X$ erhalten werden indem über die Dichtefunktion summiert wird
+    The CDF of $X$ can be obtained from the PDF of $X$ by summing over the PDF
     \begin{align*}
         F_X(x) = \sum_{x' \leq x} f_X(x').
     \end{align*}\pause
-    Die Dichtefunktion von $X$ kann von der Verteilungsfunktion von $X$ erhalten werden indem die \textit{Sprünge} in der Verteilungsfunktion identifiziert werden
+    The PMF of $X$ can be obtained from the CDF of $X$ by identifying the \textit{jumps} in the CDF
     \begin{align*}
         f_X(x) = F_X(x) - F_X(prev(x)).
     \end{align*}
 \end{frame}
 
-\subsection{Unabhängigkeit}
-\begin{frame}{Unabhängigkeit}
-    Zwei Zufallsvariablen sind \b{unabhängig} wenn das Wissen des Wertes einer Zufallsvariable keine Auswirkungen auf die Verteilung der anderen Zufallsvariable hat.\pause\par\padding
-    Zwei diskrete Zufallsvariablen $X$ und $Y$ sind unabhängig\par
-    $\iff$ die Ereignisse $X=x$ und $Y=y$ sind unabhängig\pause\par
-    $\iff$ die Ereignisse $X \leq x$ und $Y \leq y$ sind unabhängig.
+\subsection{Independence}
+\begin{frame}{Independence}
+    Two random variables are \b{independent} if knowledge about the value of one random variable does not affect the probability distribution of the other random variable.\pause\par\padding
+    Two discrete random variables $X$ and $Y$ are independent\par
+    $\iff$ the events $X=x$ and $Y=y$ are independent\pause\par
+    $\iff$ the events $X \leq x$ and $Y \leq y$ are independent.
 \end{frame}
 
-\subsection{Bernoulli Verteilung}
-\begin{frame}{Bernoulli Verteilung}
+\subsection{Bernoulli}
+\begin{frame}{Bernoulli}
     \begin{definition}[$X \sim Bern(p)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{Bernoulli}-verteilt mit Parameter $p$ falls $X(S) = \{0,1\}$ und $P(X=1) = p$.
+        A discrete random variable $X$ is \b{Bernoulli} distributed with parameter $p$ when $X(S) = \{0,1\}$ and $P(X=1) = p$.
     \end{definition}\pause
-    \begin{exampleblock}{Übersicht}
+    \begin{exampleblock}{Overview}
         \begin{itemize}
             \item $E(X) = p$
             \item $Var(X) = p (1 - p)$
@@ -299,61 +299,61 @@
     \end{exampleblock}
 \end{frame}
 
-\subsection{Erwartungswert}
-\begin{frame}{Erwartungswert}
+\subsection{Averages}
+\begin{frame}{Averages}
     \begin{definition}
-        Der \b{Erwartungswert} $E(X)$ einer Zufallsvariable $X$ ist das arithmetische Mittel einer großen Anzahl an Realisierungen von $X$.\pause
+        The \b{expected value} $E(X)$ of a random variable $X$ is the arithmetic mean of a large number of a realizations of $X$.\pause
         \begin{align*}
             E(X) &= \sum_{x \in X(S)} x \cdot P(X = x)\pause \\
                  &= \sum_{A \in S} X(A) \cdot P(A).
         \end{align*}
     \end{definition}\pause\par\padding
-    Für unendlich große Wahrscheinlichkeitsräume ist \r{absolute Konvergenz} von $E(X)$ eine notwendige Bedingung für die Existenz von $E(X)$.
+    For infinite probability spaces \r{absolute convergence} of $E(X)$ is necessary for the existence of $E(X)$.
 \end{frame}
 
 \begin{frame}
-    Eigenschaften des Erwartungswerts:\pause
+    Properties of expected values:\pause
     \begin{itemize}
-        \item falls $\forall A \in S.\ X(A) \leq Y(A)$, dann $E(X) \leq E(Y)$ (\b{Monotonie})\pause
-        \item $E(a \cdot X + b) = a \cdot E(X) + b$, $E(X + Y) = E(X) + E(Y)$ (\b{Linearität})\pause
-        \item $E(\prod_{i=1}^n X_i) = \prod_{i=1}^n E(X_i)$ falls $X_1, \dots, X_n$ unabhängig (\b{Multiplikativität}).
+        \item if $\forall A \in S.\ X(A) \leq Y(A)$, then $E(X) \leq E(Y)$ (\b{monotonicity})\pause
+        \item $E(a \cdot X + b) = a \cdot E(X) + b$, $E(X + Y) = E(X) + E(Y)$ (\b{linearity})\pause
+        \item $E(\prod_{i=1}^n X_i) = \prod_{i=1}^n E(X_i)$ if $X_1, \dots, X_n$ independent (\b{multiplicativity}).
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \begin{definition}
-        $E(X^i)$ heißt \b{$i$-tes Moment} der Zufallsvariable $X$ und $E((X - E(X))^i)$ heißt \b{$i$-tes zetrales Moment} von $X$.
+        $E(X^i)$ is called the \b{$i$-th moment} of the random variable $X$ and $E((X - E(X))^i)$ is called the \b{$i$-th central moment} of $X$.
     \end{definition}
 \end{frame}
 
 \begin{frame}
-    Das sogenannte \b{law of the unconscious statistician (LOTUS)} kann verwendet werden, um den Erwartungswert von transformierten Zufallsvariablen zu finden.
+    The \b{law of the unconscious statistician (LOTUS)} can be used to find the expected value of transformed random variables.
     \begin{align*}
         E(g(X)) = \sum_{x \in X(S)} g(x) \cdot P(X = x).
     \end{align*}
 \end{frame}
 
-\subsection{Indikatorvariablen}
-\begin{frame}{Indikatorvariablen}
+\subsection{Indicator variables}
+\begin{frame}{Indicator variables}
     \begin{definition}
-        Gegeben ein Ereignis $A$, die Zufallsvariable $I_A \sim Bern(P(A))$ ist die \b{Indikatorvariable} des Ereignisses $A$.
+        Given an event $A$, the random variable $I_A \sim Bern(P(A))$ is the \b{indicator variable} of the event $A$.
     \end{definition}\pause\par\padding
-    Eigenschaften von Indikatorvariablen:\pause
+    Properties of indicator variables:\pause
     \begin{itemize}
-        \item $E(I_A) = P(A)$\pause
+        \item $E(I_A) = P(A)$ (\b{fundamental bridge})\pause
         \item $E(I_{A_1} \cdots I_{A_n}) = P(A_1 \cap \cdots \cap A_n)$.
     \end{itemize}
 \end{frame}
 
-\subsection{Binomialverteilung}
-\begin{frame}{Binomialverteilung}
+\subsection{Binomial}
+\begin{frame}{Binomial}
     \begin{definition}[$X \sim Bin(n,p)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{binomial}-verteilt mit Parametern $n$ und $p$ falls $X$ die \#Erfolge in $n$ unabhängigen $Bern(p)$ Versuchen modelliert.
+        A discrete random variable $X$ has the \b{binomial} distribution with parameters $n$ and $p$ when $X$ models the \#successes in $n$ independent $Bern(p)$ trials.
     \end{definition}\pause
     \begin{align*}
         f_X(k) = {n \choose k} p^k (1 - p)^{n-k}.
     \end{align*}\pause
-    \begin{exampleblock}{Übersicht}
+    \begin{exampleblock}{Overview}
         \begin{itemize}
             \item $E(X) = n p$\pause
             \item $Var(X) = n p (1 - p)$
@@ -363,27 +363,27 @@
     \end{exampleblock}
 \end{frame}
 
-\subsection{Varianz}
-\begin{frame}{Varianz}
+\subsection{Variance}
+\begin{frame}{Variance}
     \begin{definition}
-        Die \b{Varianz} $Var(X)$ einer Zufallsvariable $X$ ist ein Maß der absoluten Abweichung einer Zufallsvariablen von ihrem Erwartungswert.
+        The \b{variance} $Var(X)$ of a random variable $X$ is a measure of the absolute deviation of a random variable from its mean.
         \begin{align*}
             Var(X) &= E((X - E(X))^2)\pause \\
                    &= E(X^2) - E(X)^2.
         \end{align*}\pause
-        $SD(X) = \sqrt{Var(X)}$ heißt \b{Standardabweichung} von $X$.
+        $SD(X) = \sqrt{Var(X)}$ is the \b{standard deviation} of $X$.
     \end{definition}\pause\par\padding
-    Eigenschaften der Varianz:\pause
+    Properties of variances:\pause
     \begin{itemize}
         \item $Var(a \cdot X + b) = a^2 \cdot Var(X)$\pause
-        \item $Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n Var(X_i)$ falls $X_1, \dots, X_n$ unabhängig.
+        \item $Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n Var(X_i)$ if $X_1, \dots, X_n$ independent.
     \end{itemize}
 \end{frame}
 
-\subsection{Geometrische Verteilung}
-\begin{frame}{Geometrische Verteilung}
+\subsection{Geometric}
+\begin{frame}{Geometric}
     \begin{definition}[$X \sim Geom(p)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{geometrisch} verteilt mit Parameter $p$ falls $X$ die \#Versuche, die zu einem Erfolg führen, in unabhängigen $Bern(p)$ Versuchen modelliert.
+        A discrete random variable $X$ has the \b{geometric} distribution with parameter $p$ when $X$ models the \#trials leading up to a success in independent $Bern(p)$ trials.
     \end{definition}\pause
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -397,7 +397,7 @@
             \end{align*}
         \end{column}
     \end{columns}\pause\par\padding
-    \begin{exampleblock}{Übersicht}
+    \begin{exampleblock}{Overview}
         \begin{itemize}
             \item $E(X) = \frac{1}{p}$\pause
             \item $Var(X) = \frac{1 - p}{p^2}$\pause
@@ -408,20 +408,20 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Gedächtnislosigkeit}
-        Durchführen von $x$ Versuchen, von denen keiner zum Erfolg führt, verändert nicht die Wahrscheinlichkeit dafür, dass die nächsten $y$ Versuche einen Erfolg beinhalten.\pause\par\padding
-        Diese Eigenschaft kann wie folgt formalisiert werden:
+    \begin{block}{Memorylessness}
+        Completing $x$ trials that are all failures does not change the probability of the next $y$ trials to include a success.\pause\par\padding
+        This property can be formalized as follows:
         \begin{align*}
             P(X > y + x | X > x) = P(X > y).
         \end{align*}\pause\par\padding
-        Die geometrische Verteilung ist die \r{einzige} gedächtnislose diskrete Verteilung.
+        The geometric distribution is the \r{only} memoryless discrete distribution.
     \end{block}
 \end{frame}
 
-\subsection{Poisson Verteilung}
-\begin{frame}{Poisson Verteilung}
+\subsection{Poisson}
+\begin{frame}{Poisson}
     \begin{definition}[$X \sim Po(\lambda)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{Poisson}-verteilt mit Parameter $\lambda$ falls $X$ die \#Ereignisse in einem festen Interval mit Rate $\lambda$ modelliert, wobei die Ereignisse unabhängig von der Zeit seit dem letzten Ereignis auftreten.
+        A discrete random variable $X$ has the \b{Poisson} distribution with parameter $\lambda$ when $X$ models the \#events in a fixed interval with rate $\lambda$ and with events independently occurring of the time since the last event.
     \end{definition}\pause
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -435,7 +435,7 @@
             \end{align*}
         \end{column}
     \end{columns}\pause\par\padding
-    \begin{exampleblock}{Übersicht}
+    \begin{exampleblock}{Overview}
         \begin{itemize}
             \item $E(X) = \lambda$\pause
             \item $Var(X) = \lambda$\pause
@@ -446,109 +446,109 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Poisson-Approximation der Binomialverteilung}
-        Sei $X \sim Bin(n, \lambda / n)$.\pause\par
-        Dann konvergiert die Verteilung von $X$ zu $Po(\lambda)$ mit $n \to \infty$\pause\par
-        (d.h. für kleine $\lambda / n$).
+    \begin{block}{Poisson approximation to the Binomial}
+        Let $X \sim Bin(n, \lambda / n)$.\pause\par
+        Then the distribution of $X$ converges to $Po(\lambda)$ as $n \to \infty$\pause\par
+        (i.e. for small $\lambda / n$).
     \end{block}
 \end{frame}
 
-\subsection{Wahrscheinlichkeitserzeugende Funktionen}
-\begin{frame}{Wahrscheinlichkeitserzeugende Funktionen}
+\subsection{Probability-generating functions}
+\begin{frame}{Probability-generating functions}
     \begin{definition}
-        Gegeben eine diskrete Zufallsvariable $X$ mit $X(S) \subseteq \mathbb{N}_0$ ist die \b{wahrscheinlichkeitserzeugende Funktion} definiert als
+       Given a discrete random variable $X$ with $X(S) \subseteq \mathbb{N}_0$ the \b{probability-generating function} is defined as
         \begin{align*}
             G_X(s) &= \sum_{x \in X(S)} s^x \cdot P(X=x)\pause \\
                    &= E(s^X).
         \end{align*}
     \end{definition}\pause\par\padding
-    Die wahrscheinlichkeitserzeugende Funktion einer Zufallsvariable $X$ erzeugt die Dichtefunktion von $X$:
+    The PGF of a random variable $X$ generates the PMF of $X$:
     \begin{align*}
-        P(X = i) = \frac{G_X^{(i)}(s)}{i!}.
+        P(X = i) = \frac{G_X^{(i)}(0)}{i!}.
     \end{align*}
 \end{frame}
 
 \begin{frame}
-    Eigenschaften von wahrscheinlichkeitserzeugenden Funktionen:\pause
+    Properties of probability-generating functions:\pause
     \begin{itemize}
         \item $E(X) = G_X'(1)$\pause
         \item $Var(X) = G_X''(1) + G_X'(1) - (G_X'(1))^2$\pause
         \item $G_{X + t}(s) = s^t \cdot G_X(s), t \in \mathbb{N}_0$\pause
-        \item $G_{X + Y}(s) = G_X(s) \cdot G_Y(s)$ falls $X,Y$ unabhängig.
+        \item $G_{X + Y}(s) = G_X(s) \cdot G_Y(s)$ if $X,Y$ independent.
     \end{itemize}
 \end{frame}
 
-\subsection{Momenterzeugende Funktionen}
-\begin{frame}{Momenterzeugende Funktionen}
+\subsection{Moment-generating functions}
+\begin{frame}{Moment-generating functions}
     \begin{definition}
-       Gegeben eine Zufallsvariable $X$ ist die \b{momenterzeugende Funktion} definiert als
+       Given a random variable $X$ the \b{moment-generating function} is defined as
         \begin{align*}
             M_X(s) &= \sum_{x \in X(S)} e^{s x} \cdot P(X=x)\pause \\
                    &= E(e^{s X})\pause \\
                    &= \sum_{i=0}^{\infty} \frac{E(X^i)}{i!} \cdot s^i.
         \end{align*}
     \end{definition}\pause\par\padding
-    Die momenterzeugende Funktion einer Zufallsvariable $X$ erzeugt das $i$-te Moment von $X$:
+    The MGF of a random variable $X$ generates the $i$-th moment of $X$:
     \begin{align*}
         E(X^i) = M_X^{(i)}(0).
     \end{align*}
 \end{frame}
 
 \begin{frame}
-    Eigenschaften von momenterzeugenden Funktionen:\pause
+    Properties of moment-generating functions:\pause
     \begin{itemize}
         \item $M_X(s) = G_X(e^s)$ if $X(S) \subseteq \mathbb{N}_0$ \pause
-        \item $M_{X + Y}(s) = M_X(s) \cdot M_Y(s)$ falls $X,Y$ unabhängig.
+        \item $M_{X + Y}(s) = M_X(s) \cdot M_Y(s)$ if $X,Y$ independent.
     \end{itemize}
 \end{frame}
 
-\subsection{Multivariate Verteilungen}
-\begin{frame}{Multivariate Verteilungen}
+\subsection{Joint distributions}
+\begin{frame}{Joint distributions}
     \begin{definition}
-        Eine \b{multivariate Verteilung} ist die Verteilung von zwei oder mehr Zufallsvariablen.
+        A \b{joint distribution} is the distribution of two or more random variables.
         \begin{align*}
             f_{X,Y}(x,y) = P(X = x, Y = y).
         \end{align*}\pause\par\spadding
-        Die \b{Randverteilung} einer Zufallsvariablen kann aus einer multivariaten Verteilung gewonnen werden indem über alle anderen Zufallsvariablen summiert wird:
+        The \b{marginal distribution} of a random variable can be obtained from a joint distribution by summing over all other random variables:
         \begin{align*}
             f_X(x) = \sum_{y \in Y(S)} f_{X,Y}(x,y).
         \end{align*}
     \end{definition}
 \end{frame}
 
-\subsection{Bedingte Verteilungen}
-\begin{frame}{Bedingte Verteilungen}
+\subsection{Conditional distributions}
+\begin{frame}{Conditional distributions}
     \begin{definition}
-        Gegeben eine multivariate Verteilung von zwei Zufallsvariablen $X$ und $Y$ ist die \b{bedingte Verteilung} von $X$ gegeben $Y$ die Verteilung von $X$ wenn der konkrete Wert von $Y$ bekannt ist.
+        Given the joint distribution of two random variables $X$ and $Y$ the \b{conditional distribution} of $X$ given $Y$ is the distribution of $X$ when $Y$ is known to be a particular value.
         \begin{align*}
             f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)} = \frac{f_{Y|X}(y|x) \cdot f_X(x)}{f_Y(y)}.
         \end{align*}\pause\par\spadding
-        Der \b{bedingte Erwartungswert} der Zufallsvariablen $X|Y=y$ ist der Erwartungswert der Verteilung $f_{X|Y=y}$:
+        The \b{conditional expectation} of the random variables $X|Y=y$ is the expected value of the distribution $f_{X|Y=y}$:
         \begin{align*}
             E(X|Y=y) = \sum_{x \in X(S)} x \cdot f_{X|Y}(x|y).
         \end{align*}
     \end{definition}
 \end{frame}
 
-\subsection{Faltungen}
-\begin{frame}{Faltungen}
+\subsection{Convolutions}
+\begin{frame}{Convolutions}
     \begin{definition}
-        Seien die Zufallsvariablen $X$ und $Y$ be unabhängig und $Z = X + Y$. Dann gilt
+        Let $X$ and $Y$ be independent and $Z = X + Y$. Then
         \begin{align*}
             f_Z(z) = \sum_{x \in X(S)} f_X(x) \cdot f_Y(z - x).
         \end{align*}\pause
-        Die Herleitung der Verteilung einer Summe von Zufallsvariablen gegeben deren Randverteilungen bezeichnet man auch als \b{Faltung} oder \b{Konvolution}.
+        The derivation of the distribution of a sum of random variables given the marginal distributions is called \b{convolution}.
     \end{definition}
 \end{frame}
 
-\subsection{Weitere Verteilungen}
-\begin{frame}{Weitere Verteilungen}
+\subsection{More distributions}
+\begin{frame}{More distributions}
     \begin{definition}[$X \sim HypGeom(r,a,b)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{hypergeometrisch} verteilt mit Parametern $r, a$ und $b$ falls $X$ die \# von gezogenen Objekten, die eine spezifische Eigenschaft haben, in $r$ Ziehungen ohne Zurücklegen aus $a + b$ Objekten modelliert webei $b$ Objekte die Eigenschaft aufweisen.\pause
+        A discrete random variable $X$ has the \b{hypergeometric} distribution with parameters $r, a$ and $b$ when $X$ models the \# of drawn objects that have a specified feature in $r$ draws without replacement from $a + b$ objects where $b$ objects have the specified feature.\pause
         \begin{align*}
             f_X(x) = \frac{{b \choose x}{a \choose r - x}}{{a + b \choose r}}.
         \end{align*}\pause
-        \begin{exampleblock}{Übersicht}
+        \begin{exampleblock}{Overview}
             \begin{itemize}
                 \item $E(X) = r \cdot \frac{b}{a + b}$
             \end{itemize}
@@ -558,34 +558,34 @@
 
 \begin{frame}
     \begin{definition}[$X \sim NegBin(n,p)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{negativ binomialverteilt} mit Parametern $n$ und $p$ falls $X$ die \# von unabhängigen $Bern(p)$ Versuchen bevor dem $r$-ten Erfolg modelliert.\pause
+        A discrete random variable $X$ has the \b{negative binomial} distribution with parameters $n$ and $p$ when $X$ models the \# of independent $Bern(p)$ trials before the $r$-th success.\pause
         \begin{align*}
             f_Z(z) = {z - 1 \choose n - 1} p^n (1 - p)^{z - n}.
         \end{align*}\pause
         \begin{example}
-            Seien $X_1, \dots, X_n \sim Geom(p)$ unabhängig und gleichverteilt.\par
-            Dann gilt $Z = X_1 + \cdots + X_n \sim NegBin(n,p)$.
+            Let $X_1, \dots, X_n \sim Geom(p)$ i.i.d.\par
+            Then $Z = X_1 + \cdots + X_n \sim NegBin(n,p)$.
         \end{example}
     \end{definition}
 \end{frame}
 
-\subsection{Ungleichungen}
-\begin{frame}{Ungleichungen}
-    \begin{block}{Ungleichungen vs Approximationen}
-        \textit{Approximationen} erlauben uns komplexere Probleme zu modellieren, doch ist oft nicht klar wie genau die Approximation ist.\par\pause
-        \textit{Ungleichungen} erlauben uns definitive Aussagen (Schranken) bezüglich der Wahrscheinlichkeit von Ereignissen zu treffen.
+\subsection{Inequalities}
+\begin{frame}{Inequalities}
+    \begin{block}{Inequalities vs approximations}
+        \textit{Approximations} allow us to model more complex problems but you usually don't know how good the approximation is.\par\pause
+        \textit{Inequalities} allow us to prove definite facts (i.e. bounds) about probabilities of certain events.
     \end{block}
 \end{frame}
 
 \begin{frame}
     \begin{definition}[Markov]
-        Gegeben eine Zufallsvariable $X \geq 0$ und $t > 0$
+        Given a random variable $X \geq 0$ and $t > 0$
         \begin{align*}
             P(X \geq t) \leq \frac{E(X)}{t}.
         \end{align*}
     \end{definition}\pause
     \begin{definition}[Chebyshev]
-        Gegeben eine Zufallsvariable $X$ und $t > 0$
+        Given a random variable $X$ and $t > 0$
         \begin{align*}
             P(|X - E(X)| \geq t) \leq \frac{Var(X)}{t^2}.
         \end{align*}
@@ -594,53 +594,53 @@
 
 \begin{frame}
     \begin{definition}[Chernoff]
-        Seien $X_1, \dots, X_n$ unabhängige, Bernoulli-verteilte Zufallsvariablen mit $X_i \sim Bern(p_i)$. Dann gelten die folgenden Ungleichungen für $X = \sum_{i=1}^n X_i$ und $\mu = E(X) = \sum_{i=1}^n p_i$.\pause
+        Let $X_1, \dots, X_n$ be independent, Bernoulli-distributed random variables with $X_i \sim Bern(p_i)$. Then the following inequalities hold for $X = \sum_{i=1}^n X_i$ and $\mu = E(X) = \sum_{i=1}^n p_i$.\pause
         \begin{itemize}
-            \item $P(X \geq (1 + \delta) \mu) \leq \left(\frac{e^{\delta}}{(1 + \delta)^{1 + \delta}}\right)^{\mu}$ für alle $\delta > 0$;
-            \item $P(X \leq (1 - \delta) \mu) \leq \left(\frac{e^{- \delta}}{(1 - \delta)^{1 - \delta}}\right)^{\mu}$ für alle $0 < \delta < 1$\pause;
-            \item $P(X \geq (1 + \delta) \mu) \leq e^{- \mu \delta^2 / 3}$ für alle $0 < \delta \leq 1$;
-            \item $P(X \leq (1 - \delta) \mu) \leq e^{- \mu \delta^2 / 2}$ für alle $0 < \delta \leq 1$;
-            \item $P(|X - \mu| \geq \delta \mu) \leq 2 e^{- \mu \delta^2 / 3}$ für alle $0 < \delta \leq 1$;
+            \item $P(X \geq (1 + \delta) \mu) \leq \left(\frac{e^{\delta}}{(1 + \delta)^{1 + \delta}}\right)^{\mu}$ for all $\delta > 0$;
+            \item $P(X \leq (1 - \delta) \mu) \leq \left(\frac{e^{- \delta}}{(1 - \delta)^{1 - \delta}}\right)^{\mu}$ for all $0 < \delta < 1$\pause;
+            \item $P(X \geq (1 + \delta) \mu) \leq e^{- \mu \delta^2 / 3}$ for all $0 < \delta \leq 1$;
+            \item $P(X \leq (1 - \delta) \mu) \leq e^{- \mu \delta^2 / 2}$ for all $0 < \delta \leq 1$;
+            \item $P(|X - \mu| \geq \delta \mu) \leq 2 e^{- \mu \delta^2 / 3}$ for all $0 < \delta \leq 1$;
             \item $P(X \geq (1 + \delta) \mu) \leq \left(\frac{e}{1 + \delta}\right)^{(1 + \delta) \mu}$; and
-            \item $P(X \geq t) \leq 2^{-t}$ für alle $t \geq 2 e \mu$.
+            \item $P(X \geq t) \leq 2^{-t}$ for all $t \geq 2 e \mu$.
         \end{itemize}
     \end{definition}
 \end{frame}
 
-\section{Kontinuierliche Zufallsvariablen}
-\begin{frame}{Kontinuierliche Zufallsvariablen}
+\section{Continuous random variables}
+\begin{frame}{Continuous random variables}
     \begin{definition}
-        Eine \b{kontinuierliche Zufallsvariable} $X$ ist eine Funktion
+        A \b{continuous random variable} $X$ is a function
         \begin{align*}
             X: S \to \mathbb{R}
         \end{align*}
-        wobei $X(S)$ überabzählbar ist.\pause\par\spadding
-        Die Verteilung von $X$ ist definiert durch die \b{kontinuierliche Dichtefunktion} $f_X: \mathbb{R} \to \mathbb{R}_0^+$ mit der Eigenschaft
+        where $X(S)$ is uncountable.\pause\par\spadding
+        The distribution of $X$ is defined by the \b{probability density function} $f_X: \mathbb{R} \to \mathbb{R}_0^+$ with the property
         \begin{align*}
             \int_{- \infty}^{+ \infty} f_X(x)\ dx = 1.
         \end{align*}
     \end{definition}
 \end{frame}
 
-\subsection{Kontinuierliche Wahrscheinlichkeitsräume}
-\begin{frame}{Kontinuierliche Wahrscheinlichkeitsräume}
+\subsection{Continuous probability spaces}
+\begin{frame}{Continuous probability spaces}
     \begin{definition}
-        Ein \b{Ereignis} ist eine Menge $A = \bigcup_k I_k \subseteq \mathbb{R}$, die durch eine Vereinigung abzählbar vieler paarweise disjunkter Intervalle repräsentiert werden kann. Die Wahrscheinlichkeit von $A$ ist gegeben als
+        An \b{event} is a set $A = \bigcup_k I_k \subseteq \mathbb{R}$ that can be resembled as the union of countably many pairwise disjunct intervals. The probability of $A$ is given as
         \begin{align*}
             P(A) = \int_A f_X(x)\ dx = \sum_k \int_{I_k} f_X(x)\ dx.
         \end{align*}
     \end{definition}\pause\par\padding
-    \r{Die Wahrscheinlichkeit des Ereignisses $A = \{x\}, x \in \mathbb{R}$ ist immer $0$.}
+    \r{The probability of the event $A = \{x\}, x \in \mathbb{R}$ is always $0$.}
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Verteilungsfunktion}
-        Die Verteilungsfunktion einer kontinuierlichen Zufallsvariable $X$ ist gegeben als
+    \begin{block}{Cumulative distribution functions}
+        The cumulative distribution function of a continuous random variable $X$ is given as
         \begin{align*}
             F_X(x) &= P(X \leq x)\pause = P(X < x)\pause \\
                    &= \int_{- \infty}^x f_X(t)\ dt.
         \end{align*}\pause\par\spadding
-        Die Dichtefunktion von $X$ kann durch die Verteilungsfunktion von $X$ erhalten werden indem ihre Ableitung bezüglich $x$ gefunden wird:
+        The PDF of $X$ can be obtained from the CDF of $X$ by finding its derivative with respect to $x$:
         \begin{align*}
             f_X(x) = \frac{dF_X}{dx}.
         \end{align*}
@@ -648,8 +648,8 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Intervalle}
-        Nach dem Hauptsatz der Differential- und Integralrechnung, ist die Wahrscheinlichkeit von $X \in [a,b]$ gegeben als
+    \begin{block}{Intervals}
+        By the fundamental theorem of calculus, the probability of $X$ being in the interval between $a$ and $b$ is given as
         \begin{align*}
             P(a \leq X \leq b) = F_X(b) - F_X(a) = \int_a^b f_X(x)\ dx.
         \end{align*}
@@ -657,42 +657,42 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Erwartungswerte}
-        Der Erwartungswert einer kontinuierlichen Zufallsvariable $X$ ist gegeben als
+    \begin{block}{Expected values}
+        The expected value of a continuous random variable $X$ is given as
         \begin{align*}
             E(X) = \int_{- \infty}^{+ \infty} x \cdot f_X(x)\ dx.
         \end{align*}\pause\par\padding
-        LOTUS gilt auch im kontinuierlichen Fall:
+        The law of the unconscious statistician still holds in the continuous case:
         \begin{align*}
             E(g(X)) = \int_{- \infty}^{+ \infty} g(x) \cdot f_X(x)\ dx.
         \end{align*}
     \end{block}
 \end{frame}
 
-\subsection{Gleichverteilung}
-\begin{frame}{Gleichverteilung}
+\subsection{Uniform}
+\begin{frame}{Uniform}
     \begin{definition}[$X \sim Unif(a,b)$]
-        Eine kontinuierliche Zufallsvariable $X$ ist \b{gleichverteilt} mit Parametern $a$ und $b$ falls $X$ den Ausgang eines Experimentes modelliert, wo alle Ergebnisse, die in dem Intervall $[a,b]$ liegen, gleichwahrscheinlich sind.\pause
+        A continuous random variable $X$ is \b{uniformly} distributed with parameters $a$ and $b$ when $X$ models the outcome of an experiment where all outcomes that lie in the interval $[a,b]$ are equally likely.\pause
         \begin{columns}
             \begin{column}{0.5\textwidth}
                \begin{align*}
                     f_X(x) = \begin{cases}
-                        \frac{1}{b - a} & \text{für $x \in [a,b]$} \\
-                        0 & \text{sonst}
+                        \frac{1}{b - a} & \text{for $x \in [a,b]$} \\
+                        0 & \text{otherwise}
                     \end{cases}.
                 \end{align*}
             \end{column}\pause
             \begin{column}{0.5\textwidth}
                 \begin{align*}
                     F_X(x) = \begin{cases}
-                        0 & \text{für $x < a$} \\
-                        \frac{x - a}{b - a} & \text{für $x \in [a,b]$} \\
-                        1 & \text{für $x > b$}
+                        0 & \text{for $x < a$} \\
+                        \frac{x - a}{b - a} & \text{for $x \in [a,b]$} \\
+                        1 & \text{for $x > b$}
                     \end{cases}.
                 \end{align*}
             \end{column}
         \end{columns}\pause\par\padding
-        \begin{exampleblock}{Übersicht}
+        \begin{exampleblock}{Overview}
             \begin{itemize}
                 \item $E(X) = \frac{a + b}{2}$\pause
                 \item $Var(X) = \frac{(a - b)^2}{12}$
@@ -702,14 +702,14 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Universalität der Gleichverteilung}
-        Sei $X \sim F$. Dann gilt $F(X) \sim Unif(0,1)$.\pause\par\spadding
-        Realisierungen einer Zufallsvariablen mit Verteilung $F$ und inverser Verteilungsfunktion $F^{-1}$ können mittels Realisierungen einer gleichverteilten Zufallsvariablen $Y$ simuliert werden: $F^{-1}(Y) \sim F$.
+    \begin{block}{Universality of the Uniform}
+        Let $X \sim F$. Then $F(X) \sim Unif(0,1)$.\pause\par\spadding
+        Realizations of a random variable of any distribution $F$ with the inverse CDF $F^{-1}$ can be simulated using realizations of a uniformly distributed random variable $Y$: $F^{-1}(Y) \sim F$.
     \end{block}
 \end{frame}
 
-\subsection{Normalverteilung}
-\begin{frame}{Normalverteilung}
+\subsection{Normal (Gaussian)}
+\begin{frame}{Normal (Gaussian)}
     \begin{definition}[$X \sim \mathcal{N}(\mu,\sigma^2)$]
         \begin{align*}
             f_X(x) = \frac{1}{\sigma \sqrt{2 \pi}} \cdot exp\left(-\frac{(x - \mu)^2}{2 \sigma^2}\right) =: \varphi(x;\mu,\sigma).
@@ -717,7 +717,7 @@
         \begin{align*}
             F_X(x) =: \Phi(x;\mu,\sigma).
         \end{align*}\pause
-        \begin{exampleblock}{Übersicht}
+        \begin{exampleblock}{Overview}
             \begin{itemize}
                 \item $E(X) = \mu$\pause
                 \item $Var(X) = \sigma^2$\pause
@@ -728,55 +728,55 @@
 \end{frame}
 
 \begin{frame}
-    $\mathcal{N}(0,1)$ heißt \b{Standardnormalverteilung}.\pause\par\padding
-    \begin{block}{Lineare Transformation}
-        Sei $X \sim \mathcal{N}(\mu, \sigma^2)$. Dann ist für alle $a \in \mathbb{R} \setminus \{0\}$ und $b \in \mathbb{R}$ die Zufallsvariable
+    $\mathcal{N}(0,1)$ is the \b{standard normal distribution}.\pause\par\padding
+    \begin{block}{Linear transformation}
+        Let $X \sim \mathcal{N}(\mu, \sigma^2)$. Then for any $a \in \mathbb{R} \setminus \{0\}$ and $b \in \mathbb{R}$ the random variable
         \begin{align*}
             Y = a X + b
         \end{align*}
-        normalverteilt mit Erwarungswert $a \mu + b$ und Varianz $a^2 \sigma^2$.
+        is normally distributed with mean $a \mu + b$ and variance $a^2 \sigma^2$.
     \end{block}\pause\par\padding
-    \begin{block}{Normierung}
-        Sei $X \sim \mathcal{N}(\mu, \sigma^2)$ und $Y = \frac{X - \mu}{\sigma}$. Dann gilt $Y \sim \mathcal{N}(0,1)$.\pause\par
-        Die Zufallsvariable $Y$ heißt auch \b{normiert}.
+    \begin{block}{Standardization}
+        Let $X \sim \mathcal{N}(\mu, \sigma^2)$ and $Y = \frac{X - \mu}{\sigma}$. Then $Y \sim \mathcal{N}(0,1)$.\pause\par
+        The random variable $Y$ is called \b{standardized}.
     \end{block}
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Additivität}
-        Seien $X_1, \dots, X_n$ unabhängig und normalverteilt mit Parametern $\mu_i, \sigma_i$. Dann ist die Zufallsvariable
+    \begin{block}{Additivity}
+        Let $X_1, \dots, X_n$ independent and normally distributed with parameters $\mu_i, \sigma_i$. Then the random variable
         \begin{align*}
             Z = a_1 X_1 + \cdots + a_n X_n
         \end{align*}
-        normalverteilt mit Erwartungswert $a_1 \mu_1 + \cdots a_n \mu_n$ und Varianz $a_1^2 \sigma_1^2 + \cdots + a_n^2 \sigma_n^2$.
+        is normally distributed with mean $a_1 \mu_1 + \cdots a_n \mu_n$ and variance $a_1^2 \sigma_1^2 + \cdots + a_n^2 \sigma_n^2$.
     \end{block}\pause\par\padding
-    \begin{block}{Normal-Approximation der Binomialverteilung}
-        Sei $X \sim Bin(n,p)$ mit Verteilungsfunktion $F_n(t)$. Dann kann
+    \begin{block}{Normal approximation to the Binomial}
+        Let $X \sim Bin(n,p)$ with CDF $F_n(t)$. Then
         \begin{align*}
             F_n(t) \approx \Phi\left(\frac{t - n p}{\sqrt{p (1 - p) n}}\right)
         \end{align*}
-        als Approximation verwendet werden falls $n p \geq 5$ und $n (1 - p) \geq 5$.
+        can be used as an approximation if $n p \geq 5$ and $n (1 - p) \geq 5$.
     \end{block}
 \end{frame}
 
-\subsection{$\gamma$-Quantil}
-\begin{frame}{$\gamma$-Quantil}
+\subsection{$\gamma$-quantiles}
+\begin{frame}{$\gamma$-quantiles}
     \begin{definition}
-        Sei $X$ eine kontinuierliche Zufallsvariable mit Verteilungs $F_x$. Eine Zahl $x_{\gamma}$ mit
+        Let $X$ be a continuous random variable with distribution $F_x$. A number $x_{\gamma}$ with
         \begin{align*}
             F_X(x_{\gamma}) = \gamma
         \end{align*}
-        heißt \b{$\gamma$-Quantil} von $X$ bzw. der Verteilung $F_X$.
+        is called \b{$\gamma$-quantile} of $X$ or the distribution $F_X$.
     \end{definition}\pause\par\padding
     \begin{definition}
-        Für die Standradnormalverteilung bezeichnet $z_{\gamma}$ das $\gamma$-Quantil.
+        For the standard normal $z_{\gamma}$ denotes the $\gamma$-quantile.
     \end{definition}
 \end{frame}
 
-\subsection{Exponentialverteilung}
-\begin{frame}{Exponentialverteilung}
+\subsection{Exponential}
+\begin{frame}{Exponential}
     \begin{definition}[$X \sim Exp(\lambda)$]
-        Eine kontinuierliche Zufallsvariable $X$ ist \b{exponentialverteilt} mit Parameter $\lambda$ falls $X$ die Zeit zwischen Ereignissen eines Poisson-Prozesses modelliert.\pause
+        A continuous random variable $X$ is \b{exponentially} distributed with parameter $\lambda$ when $X$ models the time between events in a Poisson process.\pause
         \begin{columns}
             \begin{column}{0.5\textwidth}
                \begin{align*}
@@ -789,7 +789,7 @@
                 \end{align*}
             \end{column}
         \end{columns}\pause\par\padding
-        \begin{exampleblock}{Übersicht}
+        \begin{exampleblock}{Overview}
             \begin{itemize}
                 \item $E(X) = \frac{1}{\lambda}$\pause
                 \item $Var(X) = \frac{1}{\lambda^2}$\pause
@@ -800,49 +800,49 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Skalierung}
-        Sei $X \sim Exp(\lambda)$. Falls $a > 0$, dann ist $Y = a X$ exponentialverteilt mit dem Parameter $\lambda / a$.
+    \begin{block}{Scaling}
+        Let $X \sim Exp(\lambda)$. If $a > 0$, then $Y = a X$ is exponentially distributed with the parameter $\lambda / a$.
     \end{block}\pause\par\padding
-    \begin{block}{Gedächtnislosigkeit}
-        Die Exponentialverteilung ist die \r{einzige} gedächtnislose kontinuierliche Verteilung. Daher ist jede kontinuierliche Zufallsvariable $X$ für die
+    \begin{block}{Memorylessness}
+        The exponential distribution is the \r{only} memoryless continuous distribution. Therefore, any continuous random variable $X$ where
         \begin{align*}
             P(X > y + x | X > x) = P(X > y)
         \end{align*}
-        für all $x,y > 0$ gilt, exponentialverteilt.
+        holds for all $x,y > 0$ is exponentially distributed.
     \end{block}
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Warten auf mehrere Ereignisse}
-        Seien $X_1, \dots, X_n$ unabhängige, exponentialverteilte Zufallsvariablen mit Parametern $\lambda_1, \dots, \lambda_n$. Dann ist $X = min \{X_1, \dots, X_n\}$ exponentialverteilt mit Parameter $\lambda_1 + \cdots + \lambda_n$.
+    \begin{block}{Waiting for multiple events}
+        Let $X_1, \dots, X_n$ be independent, exponentially distributed random variables with parameters $\lambda_1, \dots, \lambda_n$. Then $X = min \{X_1, \dots, X_n\}$ is exponentially distributed with parameter $\lambda_1 + \cdots + \lambda_n$.
     \end{block}\pause\par\padding
-    \begin{block}{Exponential-Approximation der geometrischen Verteilung}
-        Sei $X_n \sim Geom(\lambda / n)$. Die Verteilung der skalierten geometrisch verteilten Zufallsvariablen $Y_n = \frac{1}{n} X_n$ konvergiert mit $n \to \infty$ zu einer Exponentialverteilung mit Parameter $\lambda$.
+    \begin{block}{Exponential approximation to the Geometric}
+        Let $X_n \sim Geom(\lambda / n)$. The distribution of scaled geometrically distributed random variables $Y_n = \frac{1}{n} X_n$ converges to an exponential distribution with parameter $\lambda$ as $n \to \infty$.
     \end{block}
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Poisson-Prozess}
-        Seien $T_1, T_2, \ldots \sim Exp(\lambda)$ unabhängige und gleichverteilte Zufallsvariablen, die die Zeit zwischen dem $(i - 1)$-ten und dem $i$-ten Ereignis modellieren.\pause\par
-        Für $t > 0$ definieren wir
+    \begin{block}{Poisson process}
+        Let $T_1, T_2, \ldots \sim Exp(\lambda)$ i.i.d. that model the time between the $(i - 1)$-st and $i$-th event.\pause\par
+        For $t > 0$ we define
         \begin{align*}
-            X(t) = max \{n \in \mathbb{N} \mid T_1 + \cdots + T_n \leq t\},
+            X(t) = max \{n \in \mathbb{N} \mid T_1 + \cdots + T_n \leq t\}
         \end{align*}
-        das die Anzahl der Ereignisse repräsentiert, die bis zum Zeitpunkt $t$ augetreten sind.\pause\par
-        Dann ist $X(t)$ Poisson-verteilt mit Parameter $t \lambda$.
+        resembling the number of events that occurred up until time $t$.\pause\par
+        Then $X(t)$ is Poisson-distributed with parameter $t \lambda$.
     \end{block}
 \end{frame}
 
-\subsection{Multivariate Verteilungen}
-\begin{frame}{Multivariate Verteilungen}
-    \begin{block}{Randverteilungen finden}
-        Gegeben eine multivariate Verteilung $f_{X,Y}$ kann die Randverteilung $f_X$ wie folgt gefunden werden:
+\subsection{Joint distributions}
+\begin{frame}{Joint distributions}
+    \begin{block}{Getting marginals}
+        Given a joint distribution $f_{X,Y}$ the marginal distribution $f_X$ can be obtained as follows:
         \begin{align*}
             f_X(x) = \int_{- \infty}^{+ \infty} f_{X,Y}(x,y)\ dy.
         \end{align*}
     \end{block}\pause\par\padding
-    \begin{block}{Wahrscheinlichkeiten berechnen}
-        Gegeben ein Ereignis $A \in \mathbb{R}^2$. Die Wahrscheinlichkeit von $A$ ist die Fläche unter der Dichtefunktion von $X$:
+    \begin{block}{Calculating probabilities}
+        Given an event $A \in \mathbb{R}^2$ the probability of $A$ is the area under the probability density function of $X$:
         \begin{align*}
             P(A) = \iint\limits_{A} f_{X,Y}(x,y)\ dx\ dy.
         \end{align*}
@@ -850,53 +850,53 @@
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Dichtefunktionen finden}
-        Gegeben eine Verteilungsfunktion $F_{X,Y}$ kann die Dichtefunktion $f_{X,Y}$ wie folgt gefunden werden:
+    \begin{block}{Finding PDFs}
+        Given a joint CDF $F_{X,Y}$ the joint PDF $f_{X,Y}$ can be obtained as follows:
         \begin{align*}
             f_{X,Y}(x,y) = \frac{\partial^2 F_{X,Y}}{\partial x \partial y}(x,y).
         \end{align*}
     \end{block}\pause\par\padding
-    \begin{block}{Verteilungsfunktionen finden}
-        Gegeben eine Dichtefunktion $f_{X,Y}$ kann die Verteilungsfunktion $F_{X,Y}$ wie folgt gefunden werden:
+    \begin{block}{Finding CDFs}
+        Given a joint PDF $f_{X,Y}$ the joint CDF $F_{X,Y}$ can be obtained as follows:
         \begin{align*}
             F_{X,Y}(x,y) = \int_{- \infty}^y \int_{- \infty}^x f_{X,Y}(u,v)\ du\ dv.
         \end{align*}
     \end{block}
 \end{frame}
 
-\subsection{Weitere Verteilungen}
-\begin{frame}{Weitere Verteilungen}
+\subsection{More distributions}
+\begin{frame}{More distributions}
     \begin{definition}[$X \sim Lognormal(\mu, \sigma^2)$]
-        Eine kontinuierliche Zufallsvariable $X$ ist \b{logarithmisch normalverteilt} mit Parametern $\mu$ und $\sigma^2$ falls $Y = ln(X) \sim \mathcal{N}(\mu, \sigma^2)$.\pause
+        A continuous random variable $X$ is \b{logarithmically normal} distributed with parameters $\mu$ and $\sigma^2$ when $Y = ln(X) \sim \mathcal{N}(\mu, \sigma^2)$.\pause
         \begin{align*}
             f_X(x) = \frac{1}{x \sigma \sqrt{2 \pi}} \cdot exp\left(-\frac{(ln(x) - \mu)^2}{2 \sigma^2}\right).
         \end{align*}
     \end{definition}
 \end{frame}
 
-\section{Induktive Statistik}
-\subsection{Schätzer}
-\begin{frame}{Schätzer}
-    \b{Induktive Statistik} versucht mittels gemessener Größen auf zugrundeliegende Gesetzmäßigkeiten zu schließen.\pause\par
-    Um Daten zu generieren, werden $n$ unabhängige Kopien eines identischen Experimentes durchgeführt, das durch die Zufallsvariable $X$ modelliert wird. Eine Messung, die aus einem dieser Experimente resultiert, heißt \b{Stichprobe}.\pause\par
-    Jede Stichprobe wird durch eine separate Zufallsvariable $X_i$ repräsentiert, die als \b{Stichprobenvariable} bezeichnet wird.\pause\par\padding
+\section{Inductive Statistics}
+\subsection{Estimators}
+\begin{frame}{Estimators}
+    \b{Inductive statistics} aims to use measured quantities to draw conclusions about underlying laws.\pause\par
+    To generate data $n$ independent copies of an identical experiment modeled by the random variable $X$ are conducted. A measurement resulting from one of these experiments is called a \b{sample}.\pause\par
+    Each sample is represented by a separate random variable $X_i$ called \b{sample variable}.\pause\par\padding
     \begin{definition}
-        Ein \b{Schätzer} ist eine Zufallsvariable die mehrere Stichprobenvariablen kombiniert.\pause\par\spadding
-        Der \b{Bias} eines Schätzers $U$ ist gegeben als $E(U - \theta)$.\pause\par\spadding
-        Ein Schätzer $U$ ist \b{erwartungstreu} bezüglich dem Parameter $\theta$ falls $E(U) = \theta$\par
-        (d.h. der Bias des Schätzers ist Null).
+        An \b{estimator} is a random variable composed of multiple sample variables.\pause\par\spadding
+        The \b{bias} of an estimator $U$ is given as $E(U - \theta)$.\pause\par\spadding
+        An estimator $U$ is \b{unbiased} for the parameter $\theta$ if $E(U) = \theta$\par
+        (i.e. its bias is zero).
     \end{definition}
 \end{frame}
 
 \begin{frame}
     \begin{definition}
-        Das \b{Stichprobenmittel} $\bar{X}$ ist ein erwartungstreuer Schätzer für $E(X)$.
+        The \b{sample mean} $\bar{X}$ is an unbiased estimator for $E(X)$.
         \begin{align*}
             \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i.
         \end{align*}
     \end{definition}\pause\par\padding
     \begin{definition}
-        Die \b{Stichprobenvarianz} $S^2$ ist ein erwartungstreuer Schätzer für $Var(X)$.
+        The \b{sample variance} $S^2$ is an unbiased estimator for $Var(X)$.
         \begin{align*}
             S = \sqrt{\frac{1}{n - 1} \sum_{i=1}^n (X_i - \bar{X})^2}.
         \end{align*}
@@ -905,91 +905,91 @@
 
 \begin{frame}
     \begin{definition}
-        Der \b{mean squared error} ist ein Gütemaß für einen Schätzer $U$.
+        The \b{mean squared error} is a qualitative measure of an estimator $U$.
         \begin{align*}
             MSE(U) = E((U - \theta)^2).
         \end{align*}\pause
-        Falls $U$ erwartungstreu ist, so gilt $MSE(U) = Var(U)$.\pause\par\spadding
-        Ein Schätzer $A$ ist \b{effizienter} als ein anderer Schätzer $B$ falls $MSE(A) < MSE(B)$.\par\pause\spadding
-        Ein Schätzer $U$ ist \b{konsistent im quadratischen Mittel} fallse $MSE(U) \xrightarrow{n \to \infty} 0.$
+        If $U$ is unbiased, then $MSE(U) = Var(U)$.\pause\par\spadding
+        An estimator $A$ is \b{more efficient} than another estimator $B$ if $MSE(A) < MSE(B)$.\par\pause\spadding
+        An estimator $U$ is \b{consistent in mean square} if $MSE(U) \xrightarrow{n \to \infty} 0.$
     \end{definition}
 \end{frame}
 
-\subsection{Maximum-Likelihood-Schätzer}
-\begin{frame}{Maximum-Likelihood-Schätzer}
-    Die \b{Maximum-Likelihood-Konstruktion} ist ein Verfahren zur Konstruktion eines Schätzers für Parameter von Verteilungen.\pause\par\padding
-    Gegeben Stichproben $\overrightarrow{X} = (X_1, \dots, X_n)$ finde einen Maximum-Likelihood-Schätzer für $X$ mit Parameter $\theta$. $\overrightarrow{x} = (x_1, \dots, x_n)$ kombinieren alle Stichprobenwerte.
+\subsection{Maximum likelihood estimators}
+\begin{frame}{Maximum likelihood estimators}
+    \b{Maximum Likelihood Construction} is a procedure to construct estimators for parameters of distributions.\pause\par\padding
+    Given samples $\overrightarrow{X} = (X_1, \dots, X_n)$ find Maximum-Likelihood estimator for $X$ with parameter $\theta$. $\overrightarrow{x} = (x_1, \dots, x_n)$ combines all sample values.
     \begin{enumerate}
-        \item konstruiere $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
-        \item finde $\theta$, das $L$ maximiert
-        \item der Wert für $\theta$, der $L$ maximiert, ist ein Maximum-Likelihood-Schätzer für $\theta$
+        \item construct $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
+        \item find $\theta$ maximizing $L$
+        \item the value for $\theta$ maximizing $L$ is a Maximum-Likelihood estimator for $\theta$
     \end{enumerate}
 \end{frame}
 
-\subsection{Gesetz der großen Zahlen}
-\begin{frame}{Gesetz der großen Zahlen}
-    Das Gesetz der großen Zahlen besagt, dass das Stichprobenmittel $\bar{X}$ mit Wahrscheinlichkeit $1$ gegen den Erwartungswert $E(X)$ konvergiert während sich die Stichprobengröße $n$ Unendlich annähert.\pause
+\subsection{Law of Large Numbers}
+\begin{frame}{Law of Large Numbers}
+    The law of large numbers says that the sample mean $\bar{X}$ converges to the actual mean $E(X)$ with probability $1$ as the sample size $n$ approaches infinity.\pause
     \begin{align*}
         P(|\bar{X} - E(X)| \geq \delta) \leq \epsilon
     \end{align*}
-    für $\delta, \epsilon > 0$ und $n \geq \frac{Var(X)}{\epsilon \delta^2}$.
+    for $\delta, \epsilon > 0$ and $n \geq \frac{Var(X)}{\epsilon \delta^2}$.
 \end{frame}
 
-\subsection{Zentraler Grenzwertsatz}
-\begin{frame}{Zentraler Grenzwertsatz}
-    Der zentrale Grenzwertsatz besagt, dass die normierte Summe von Stichprobenvariablen sich einer Standardnormalverteilung annähert  während sich die Stichprobengröße $n$ Unendlich annähert selbst wenn die zugrundeliegende Verteilung nicht die Normalverteilung ist.\pause
+\subsection{Central Limit Theorem}
+\begin{frame}{Central Limit Theorem}
+    The central limit theorem says that the normalized sum of sample values tends towards a standard normal distribution as the sample size approaches infinity even if the original data is not normally distributed.\pause
     \begin{align*}
-        \frac{\sum_{i=1}^n X_i - n \mu}{\sigma \sqrt{n}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}
+        \frac{\sum_{i=1}^n X_i - n \mu}{\sigma \sqrt{n}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in distribution}
     \end{align*}
-    für $X_i$ i.i.d..\pause\par\spadding
-    Equivalent:
+    for $X_i$ i.i.d..\pause\par\spadding
+    Equivalently:
     \begin{align*}
-        \sqrt{n} \left(\frac{\bar{X} - \mu}{\sigma}\right) \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}.
+        \sqrt{n} \left(\frac{\bar{X} - \mu}{\sigma}\right) \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in distribution}.
     \end{align*}
 \end{frame}
 
 \begin{frame}
-    \begin{block}{Grenzwertsatz nach de Moivre}
-        Der Grenzwertsatz nach de Moivre ist ein Spezialfall des zentralen Grenzwertsatzes und sagt aus, dass die Normalverteilung als Approximation für die Binomialverteilung verwendet werden kann.\pause\par\spadding
-        Seien $X_1, \dots, X_n \sim Bern(p)$ unabhängig und gleichverteilt sowie $H_n = X_1 + \cdots + X_n$. Dann gilt
+    \begin{block}{De Moivre-Laplace theorem}
+        The De Moivre-Laplace theorem is a special case of the central limit theorem and states that the Normal distribution can be used as an approximation for the Binomial distribution.\pause\par\spadding
+        Let $X_1, \dots, X_n \sim Bern(p)$ i.i.d. and $H_n = X_1 + \cdots + X_n$. Then
         \begin{align*}
-            H_n^* = \frac{H_n - n p}{\sqrt{n p (1 - p)}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}.
+            H_n^* = \frac{H_n - n p}{\sqrt{n p (1 - p)}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in distribution}.
         \end{align*}
     \end{block}
 \end{frame}
 
-\subsection{Konfidenzintervalle}
-\begin{frame}{Konfidenzintervalle}
-    Oft werden zwei Schätzer verwendet, um die abzuschätzende Größe aus beiden Richtungen abzuschätzen.\pause
-    Die beiden Schätzer $U_1$ und $U_2$ werden so gewählt, dass
+\subsection{Confidence intervals}
+\begin{frame}{Confidence intervals}
+    Often two estimators are used to approach the estimated quantity from both directions.\pause
+    The two estimators $U_1$ and $U_2$ are chosen such that
     \begin{align*}
         P(U_1 \leq \theta \leq U_2) \geq 1 - \alpha.
     \end{align*}\pause
-    Die Wahrscheinlichkeit $1 - \alpha$ heißt \b{Konfidenzniveau}.\pause\par\padding
-    Berechnen wir für konkrete Stichproben die Schätzer $U_1$ und $U_2$ und erwarten $\theta \in [U_1, U_2]$, dann liegt die Fehlerwahrscheinlichkeit bei $\alpha$. $[U_1, U_2]$ ist ein \b{Konfidenzintervall}.\pause\par\spadding
-    Oft wird ein einziger Schätzer $U$ verwendet, um das symmetrische Konfidenzintervall $[U - \delta, U + \delta]$ zu definieren.
+    The probability $1 - \alpha$ is called \b{confidence level}.\pause\par\padding
+    If for a concrete sample we calculate the estimators $U_1$ and $U_2$ and expect $\theta \in [U_1, U_2]$, then we are only wrong with probability $\alpha$. $[U_1, U_2]$ is a \b{confidence interval}.\pause\par\spadding
+    Often a single estimator $U$ is used to define the symmetrical confidence interval $[U - \delta, U + \delta]$.
 \end{frame}
 
-\subsection{Hypothesentests}
-\begin{frame}{Hypothesentests}
-    Gegeben Stichprobenvariablen $\overrightarrow{X} = (X_1, \dots, X_n)$ und Stichprobenwerte $\overrightarrow{x} = (x_1, \dots, x_n)$ entscheide, ob eine Hypothese akzeptiert oder abgelehnt werden soll.\pause\par\padding
-    $K = \{\overrightarrow{x} \in \mathbb{R}^n \mid \overrightarrow{x} \text{ resultiert in Ablehnung der Hypothese}\}$ heißt \b{kritischer Bereich} (oder \b{Ablehnungsbereich}) eines Tests.\pause\par\padding
-    $K$ wird basierend auf den konkreten Werten der \b{Testvariablen} $T$ gewählt, die sich aus den Stichprobenvariablen zusammensetzt.\pause\par\padding
-    Ein Test heißt \b{einseitig} falls $K$ ein halboffenes Intervall in $T(S)$ ist und \b{beidseitig} falls $K$ ein geschlossenes Intervall in $T(S)$ ist.
+\subsection{Hypothesis tests}
+\begin{frame}{Hypothesis tests}
+    Given sample variables $\overrightarrow{X} = (X_1, \dots, X_n)$ and sample values $\overrightarrow{x} = (x_1, \dots, x_n)$ decide whether to accept or reject a hypothesis.\pause\par\padding
+    $K = \{\overrightarrow{x} \in \mathbb{R}^n \mid \overrightarrow{x} \text{ results in rejecting the hypothesis}\}$ is the \b{critical region} (or \b{rejection region}) of a test.\pause\par\padding
+    $K$ is constructed based on the concrete values of the \b{test variable} $T$ that is composed of the sample variables.\pause\par\padding
+    A test is called \b{one-sided} if $K$ is a half-open interval in $T(S)$ and \b{two-sided} if $K$ is a closed interval in $T(S)$.
 \end{frame}
 
 \begin{frame}
-    $H_0$ ist die Hypothese auf die getestet wird, auch als \b{Nullhypothese} bezeichnet.\par
-    $H_1$ ist die \b{Alternative}. $H_1$ ist \b{trivial} falls es die einfache Negation von $H_0$ ist.\pause\par\padding
-    \begin{block}{Fehler}
+    $H_0$ is the hypothesis to be tested, also called \b{null-hypothesis}.\par
+    $H_1$ is the \b{alternative}. $H_1$ is \b{trivial} if it is just the negation of $H_0$.\pause\par\padding
+    \begin{block}{Errors}
         \begin{itemize}
-            \item \b{Fehler 1. Art} oder \b{$\alpha$-Fehler} oder \b{Signifikanzniveau}\par
-                $H_0$ gilt, aber $\overrightarrow{x} \in K$
+            \item \b{type 1 error} or \b{$\alpha$-error} or \b{significance level}\par
+                $H_0$ holds, but $\overrightarrow{x} \in K$
                 \begin{align*}
                     \alpha = \sup_{p \in H_0} P_p(T \in K).
                 \end{align*}\pause
-            \item \b{type 2 error} oder \b{$\beta$-Fehler}\par
-                $H_1$ gilt, aber $\overrightarrow{x} \not\in K$
+            \item \b{type 2 error} or \b{$\beta$-error}\par
+                $H_1$ holds, but $\overrightarrow{x} \not\in K$
                 \begin{align*}
                     \beta = \sup_{p \in H_1} P_p(T \not\in K).
                 \end{align*}
@@ -998,17 +998,17 @@
 \end{frame}
 
 \begin{frame}
-    Die \b{Gütefunktion} $g$ beschreibt die Wahrscheinlichkeit, dass ein Test die Nullhypothese ablehnt.
+    The \b{quality function} $g$ describes the probability that a test rejects the null-hypothesis.
     \begin{align*}
         g(p) = P_p(T \in K).
     \end{align*}
 \end{frame}
 
-\section{Markovketten}
-\subsection{Stochastische Prozesse}
-\subsection{Markov-Eigenschaft}
-\subsection{Repräsentationen}
-\subsection{Stationäre Verteilung}
-\subsection{Eigenschaften}
+\section{Markov chains}
+\subsection{Stochastic processes}
+\subsection{Markov property}
+\subsection{Representations}
+\subsection{Stationary distribution}
+\subsection{Properties}
 
 \end{document}
