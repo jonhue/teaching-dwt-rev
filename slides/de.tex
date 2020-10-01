@@ -734,7 +734,7 @@
         \begin{align*}
             Y = a X + b
         \end{align*}
-        normalverteilt mit Erwarungswert $a \mu + b$ und Varianz $a^2 \sigma^2$.
+        normalverteilt mit Erwartungswert $a \mu + b$ und Varianz $a^2 \sigma^2$.
     \end{block}\pause\par\padding
     \begin{block}{Normierung}
         Sei $X \sim \mathcal{N}(\mu, \sigma^2)$ und $Y = \frac{X - \mu}{\sigma}$. Dann gilt $Y \sim \mathcal{N}(0,1)$.\pause\par
@@ -744,7 +744,7 @@
 
 \begin{frame}
     \begin{block}{Additivität}
-        Seien $X_1, \dots, X_n$ unabhängig und normalverteilt mit Parametern $\mu_i, \sigma_i$. Dann ist die Zufallsvariable
+        Seien $X_1, \dots, X_n$ unabhängig und normalverteilt mit Parametern $\mu_i, \sigma_i^2$. Dann ist die Zufallsvariable
         \begin{align*}
             Z = a_1 X_1 + \cdots + a_n X_n
         \end{align*}
@@ -769,7 +769,7 @@
         heißt \b{$\gamma$-Quantil} von $X$ bzw. der Verteilung $F_X$.
     \end{definition}\pause\par\padding
     \begin{definition}
-        Für die Standradnormalverteilung bezeichnet $z_{\gamma}$ das $\gamma$-Quantil.
+        Für die Standardnormalverteilung bezeichnet $z_{\gamma}$ das $\gamma$-Quantil.
     \end{definition}
 \end{frame}
 
@@ -875,11 +875,14 @@
 \end{frame}
 
 \section{Induktive Statistik}
-\subsection{Schätzer}
-\begin{frame}{Schätzer}
+\begin{frame}{Induktive Statistik}
     \b{Induktive Statistik} versucht mittels gemessener Größen auf zugrundeliegende Gesetzmäßigkeiten zu schließen.\pause\par
     Um Daten zu generieren, werden $n$ unabhängige Kopien eines identischen Experimentes durchgeführt, das durch die Zufallsvariable $X$ modelliert wird. Eine Messung, die aus einem dieser Experimente resultiert, heißt \b{Stichprobe}.\pause\par
-    Jede Stichprobe wird durch eine separate Zufallsvariable $X_i$ repräsentiert, die als \b{Stichprobenvariable} bezeichnet wird.\pause\par\padding
+    Jede Stichprobe wird durch eine separate Zufallsvariable $X_i$ repräsentiert, die als \b{Stichprobenvariable} bezeichnet wird.
+\end{frame}
+
+\subsection{Schätzer}
+\begin{frame}{Schätzer}
     \begin{definition}
         Ein \b{Schätzer} ist eine Zufallsvariable die mehrere Stichprobenvariablen kombiniert.\pause\par\spadding
         Der \b{Bias} eines Schätzers $U$ ist gegeben als $E(U - \theta)$.\pause\par\spadding
