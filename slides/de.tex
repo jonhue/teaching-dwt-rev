@@ -557,8 +557,8 @@
 \end{frame}
 
 \begin{frame}
-    \begin{definition}[$X \sim NegBin(n,p)$]
-        Eine diskrete Zufallsvariable $X$ ist \b{negativ binomialverteilt} mit Parametern $n$ und $p$ falls $X$ die \# von unabhängigen $Bern(p)$ Versuchen bevor dem $r$-ten Erfolg modelliert.\pause
+    \begin{definition}[$Z \sim NegBin(n,p)$]
+        Eine diskrete Zufallsvariable $Z$ ist \b{negativ binomialverteilt} mit Parametern $n$ und $p$ falls $Z$ die \# von unabhängigen $Bern(p)$ Versuchen bevor dem $n$-ten Erfolg modelliert.\pause
         \begin{align*}
             f_Z(z) = {z - 1 \choose n - 1} p^n (1 - p)^{z - n}.
         \end{align*}\pause
@@ -762,7 +762,7 @@
 \subsection{$\gamma$-Quantil}
 \begin{frame}{$\gamma$-Quantil}
     \begin{definition}
-        Sei $X$ eine kontinuierliche Zufallsvariable mit Verteilungs $F_x$. Eine Zahl $x_{\gamma}$ mit
+        Sei $X$ eine kontinuierliche Zufallsvariable mit Verteilung $F_x$. Eine Zahl $x_{\gamma}$ mit
         \begin{align*}
             F_X(x_{\gamma}) = \gamma
         \end{align*}
@@ -988,7 +988,7 @@
                 \begin{align*}
                     \alpha = \sup_{p \in H_0} P_p(T \in K).
                 \end{align*}\pause
-            \item \b{type 2 error} oder \b{$\beta$-Fehler}\par
+            \item \b{Fehler 2. Art} oder \b{$\beta$-Fehler}\par
                 $H_1$ gilt, aber $\overrightarrow{x} \not\in K$
                 \begin{align*}
                     \beta = \sup_{p \in H_1} P_p(T \not\in K).
@@ -1004,11 +1004,122 @@
     \end{align*}
 \end{frame}
 
+\subsection{Statistische Tests}
+\begin{frame}{Statistische Tests}
+    \begin{block}{Eigenschaften}
+        Statistische Tests können anhand einiger Merkmale unterschieden werden:
+        \begin{itemize}
+            \item \textbf{Anzahl beteiligter Zufallsgrößen}\pause\par
+                Vergleich zweier Zufallsvariablen mit potenziell unterschiedlichen Verteilungen (\b{Zwei-Stichproben-Test}), oder Untersuchung einer Zufallsvariable (\b{Ein-Stichproben-Test})?\pause
+                \begin{itemize}
+                    \item Unabhängigkeit beteiligter Zufallsvariablen\par
+                        Bei dem Vergleich mehrerer Zufallsvariablen wird unterschieden, ob \b{unabhängige Messungen} (Unabhängigkeit) oder \b{verbundene Messungen} (Abhängigkeit) vorgenommen werden.\pause
+                    \item Betrachtung des Zusammenhangs mehrerer Zufallsvariablen\par
+                        Wird der funktionale Zusammenhang mehrerer Zufallsvariablen untersucht spricht man von einer \b{Regressionsanalyse}. Werden die Zufallsvariablen auf Unabhängigkeit untersucht spricht man von einer \b{Zusammenhangsanalyse}.
+                \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item \textbf{Formulierung der Nullhypothese}\pause\par
+            Über welche \b{Lageparameter} macht der Test eine Aussage (z.B Erwartungswert oder Varianz), oder wird auf eine vorgegebene Verteilung getestet?\pause
+        \item \textbf{Annahmen über die Zufallsgrößen}\pause\par
+            Welche Annahmen macht der Test über die Zufallsvariablen wie zum Beispiel die Art der Verteilung, Erwartungswert, oder Varianz?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Wichtige statistische Testverfahren}\pause
+        \begin{itemize}
+            \item Approximativer Binomialtest\pause
+            \item Gaußtest\pause
+            \item $t$-Test\pause
+            \item Zwei-Stichproben-$t$-Test\pause
+            \item $\chi^2$-Anpassungstest
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \section{Markovketten}
 \subsection{Stochastische Prozesse}
-\subsection{Markov-Eigenschaft}
+\begin{frame}{Stochastische Prozesse}
+    \begin{definition}
+        Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen Zuständen die ein System zum Zeitpunkt $t$ annimmt.\par\pause\spadding
+        Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{knotinuierlicher Zeit}.
+    \end{definition}
+\end{frame}
+
+\subsection{Markov-Bedingung}
+\begin{frame}{Markov-Bedingung}
+    \begin{definition}
+        Ein stochastischer Prozess erfüllt die \b{Markov-Bedingung}, falls die Wahrscheinlichkeitsverteilung der Zustände zum Zeitpunkt $t + 1$ nur von der Wahrscheinlichkeitsverteilung der Zustände zum Zeitpunkt $t$ abhängt, nicht aber von Zuständen zum Zeitpunkt $< t$.\pause\par\spadding
+        Diese Bedingung kann wie folgt formalisiert werden:
+        \begin{align*}
+            P(X_{t+1} = j | X_t = i_t, \dots, X_0 = i_0) = P(X_{t+1} = j | X_t = i_k)\pause =: p_{i_t j}^t.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Eine \b{(endliche) Markov-Kette} (mit diskreter Zeit) über Zustandsmenge $S = \{0, \dots, n-1\}$ besteht aus einer unendlichen Folge von Zufallsvariablen $(X_t)_{t \in \mathbb{N}_0}$ wit Wertebereich $S$\pause\ und \b{Startverteilung} $q_0$ mit $q_0^T \in \mathbb{R}^n$.\pause\ $q_0$ muss als Zeilenvektor eine valide diskrete Dichtefunktion auf der Zustandsmenge $S$ beschreiben.\pause\ Weiterhin muss die Markov-Bedingung erfüllt sein.
+    \end{definition}
+\end{frame}
+
 \subsection{Repräsentationen}
-\subsection{Stationäre Verteilung}
+\begin{frame}{Repräsentationen}
+    \begin{definition}
+        Sind die Übergangswahrscheinlichkeiten $p_{ij} = P(X_{t+1} = j | X_t = i)$ konstant mit der Zeit $t$, so spricht man von einer \b{(zeit-)homogenen} Markov-Kette.\par\pause\spadding
+        In diesem Fall definiert man die \b{Übergangsmatrix} durch $P = (p_{ij})_{0 \leq i, j < n}$.\par\pause\spadding
+        Das \b{Übergangsdiagramm} ist ein Graph bestehend aus den Zuständen $S$ wobei die gewichteten Kanten durch $P$ repräsentiert werden.
+    \end{definition}\par\pause\padding
+    Einen konkreten Ablauf des Systems kann man sich auch als Random Walk auf dem Übergangsdiagramm vorstellen.
+\end{frame}
+
+\subsection{Wahrscheinlichkeiten}
+\begin{frame}{Wahrscheinlichkeiten}
+    Die Verteilung einer Markov-Kette kann iterativ für immer größere Zeitpunkte $t$ bestimmt werden:
+    \begin{align*}
+        q_{t+1} &= q_t \cdot P\pause \\
+        q_t     &= q_0 \cdot P^t\pause \\
+        q_{t+k} &= q_t \cdot P^k.
+    \end{align*}\pause
+    Die Einträge von $P^k$ geben an, mit welcher Wahrscheinlichkeit ein Übergang von Zustand $i$ in Zustand $j$ in genau $k$ Schritten erfolgt:
+    \begin{align*}
+        p_{ij}^{(k)} = P(X_{t+k} = j | X_t = i) = (P^k)_{ij}.
+    \end{align*}
+\end{frame}
+
+\subsection{Übergangszeiten}
+\begin{frame}{Übergangszeiten}
+    \begin{definition}
+        Die \b{Übergangszeit} von Zustand $i$ in Zustand $j$ wird durch die folgende Zufallsvariable modelliert:
+        \begin{align*}
+            T_{ij} = min \{n \geq 0 \mid X_n = j, \text{ wenn } X_0 = i\}.
+        \end{align*}\pause
+        Die \b{erwartete Übergangszeit} ist gegeben durch
+        \begin{align*}
+            h_{ij} &= E(T_{ij})\pause \\
+                   &= 1 + \sum_{n \neq j} p_{ik} h_{kj}.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    Die Wahrscheinlichkeit vom Zustand $i$ in beliebig vielen Schritten in den Zustand $j$ zu gelangen, heißt \b{Ankunftswahrscheinlichkeit} $f_{ij}$:
+    \begin{align*}
+        f_{ij} &= P(T_{ij} \leq \infty)\pause \\
+               &= p_{ij} + \sum_{n \neq j} p_{ik} f_{kj}.
+    \end{align*}\pause
+    \begin{definition}
+        Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ in Zustand $i$ an.\pause\par\spadding
+        Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog definiert.
+    \end{definition}
+\end{frame}
+
 \subsection{Eigenschaften}
+\subsection{Stationäre Verteilung}
 
 \end{document}
