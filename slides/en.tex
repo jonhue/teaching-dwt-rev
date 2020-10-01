@@ -744,7 +744,7 @@
 
 \begin{frame}
     \begin{block}{Additivity}
-        Let $X_1, \dots, X_n$ independent and normally distributed with parameters $\mu_i, \sigma_i$. Then the random variable
+        Let $X_1, \dots, X_n$ independent and normally distributed with parameters $\mu_i, \sigma_i^2$. Then the random variable
         \begin{align*}
             Z = a_1 X_1 + \cdots + a_n X_n
         \end{align*}
@@ -875,11 +875,14 @@
 \end{frame}
 
 \section{Inductive Statistics}
-\subsection{Estimators}
-\begin{frame}{Estimators}
+\begin{frame}{Inductive Statistics}
     \b{Inductive statistics} aims to use measured quantities to draw conclusions about underlying laws.\pause\par
     To generate data $n$ independent copies of an identical experiment modeled by the random variable $X$ are conducted. A measurement resulting from one of these experiments is called a \b{sample}.\pause\par
-    Each sample is represented by a separate random variable $X_i$ called \b{sample variable}.\pause\par\padding
+    Each sample is represented by a separate random variable $X_i$ called \b{sample variable}.
+\end{frame}
+
+\subsection{Estimators}
+\begin{frame}{Estimators}
     \begin{definition}
         An \b{estimator} is a random variable composed of multiple sample variables.\pause\par\spadding
         The \b{bias} of an estimator $U$ is given as $E(U - \theta)$.\pause\par\spadding
