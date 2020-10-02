@@ -920,7 +920,7 @@
 
 \subsection{Maximum likelihood estimators}
 \begin{frame}{Maximum likelihood estimators}
-    \b{Maximum Likelihood Construction} is a procedure to construct estimators for parameters of distributions.\pause\par\padding
+    \b{Maximum Likelihood Construction} is a procedure to construct estimators for parameters of a given distribution.\pause\par\padding
     Given samples $\overrightarrow{X} = (X_1, \dots, X_n)$ find Maximum-Likelihood estimator for $X$ with parameter $\theta$. $\overrightarrow{x} = (x_1, \dots, x_n)$ combines all sample values.
     \begin{enumerate}
         \item construct $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
@@ -931,7 +931,7 @@
 
 \subsection{Law of Large Numbers}
 \begin{frame}{Law of Large Numbers}
-    The law of large numbers says that the sample mean $\bar{X}$ converges to the actual mean $E(X)$ with probability $1$ as the sample size $n$ approaches infinity.\pause
+    The law of large numbers says that the sample mean of i.i.d. sample variables $\bar{X}$ converges to the actual mean $E(X)$ with probability $1$ as the sample size $n$ approaches infinity.\pause
     \begin{align*}
         P(|\bar{X} - E(X)| \geq \delta) \leq \epsilon
     \end{align*}
@@ -963,7 +963,7 @@
 
 \subsection{Confidence intervals}
 \begin{frame}{Confidence intervals}
-    Often two estimators are used to approach the estimated quantity from both directions.\pause
+    Often two estimators are used to approach the estimated quantity from both directions.\pause\par
     The two estimators $U_1$ and $U_2$ are chosen such that
     \begin{align*}
         P(U_1 \leq \theta \leq U_2) \geq 1 - \alpha.

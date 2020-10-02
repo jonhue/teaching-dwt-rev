@@ -914,13 +914,13 @@
         \end{align*}\pause
         Falls $U$ erwartungstreu ist, so gilt $MSE(U) = Var(U)$.\pause\par\spadding
         Ein Schätzer $A$ ist \b{effizienter} als ein anderer Schätzer $B$ falls $MSE(A) < MSE(B)$.\par\pause\spadding
-        Ein Schätzer $U$ ist \b{konsistent im quadratischen Mittel} fallse $MSE(U) \xrightarrow{n \to \infty} 0.$
+        Ein Schätzer $U$ ist \b{konsistent im quadratischen Mittel} falls $MSE(U) \xrightarrow{n \to \infty} 0.$
     \end{definition}
 \end{frame}
 
 \subsection{Maximum-Likelihood-Schätzer}
 \begin{frame}{Maximum-Likelihood-Schätzer}
-    Die \b{Maximum-Likelihood-Konstruktion} ist ein Verfahren zur Konstruktion eines Schätzers für Parameter von Verteilungen.\pause\par\padding
+    Die \b{Maximum-Likelihood-Konstruktion} ist ein Verfahren zur Konstruktion eines Schätzers für Parameter von einer gegbenen Verteilung.\pause\par\padding
     Gegeben Stichproben $\overrightarrow{X} = (X_1, \dots, X_n)$ finde einen Maximum-Likelihood-Schätzer für $X$ mit Parameter $\theta$. $\overrightarrow{x} = (x_1, \dots, x_n)$ kombinieren alle Stichprobenwerte.
     \begin{enumerate}
         \item konstruiere $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
@@ -931,7 +931,7 @@
 
 \subsection{Gesetz der großen Zahlen}
 \begin{frame}{Gesetz der großen Zahlen}
-    Das Gesetz der großen Zahlen besagt, dass das Stichprobenmittel $\bar{X}$ mit Wahrscheinlichkeit $1$ gegen den Erwartungswert $E(X)$ konvergiert während sich die Stichprobengröße $n$ Unendlich annähert.\pause
+    Das Gesetz der großen Zahlen besagt, dass das Stichprobenmittel aus unabhängigen und gleichverteilten Stichprobenvariablen $\bar{X}$ mit Wahrscheinlichkeit $1$ gegen den Erwartungswert $E(X)$ konvergiert während sich die Stichprobengröße $n$ Unendlich annähert.\pause
     \begin{align*}
         P(|\bar{X} - E(X)| \geq \delta) \leq \epsilon
     \end{align*}
@@ -963,7 +963,7 @@
 
 \subsection{Konfidenzintervalle}
 \begin{frame}{Konfidenzintervalle}
-    Oft werden zwei Schätzer verwendet, um die abzuschätzende Größe aus beiden Richtungen abzuschätzen.\pause
+    Oft werden zwei Schätzer verwendet, um die abzuschätzende Größe aus beiden Richtungen abzuschätzen.\pause\par
     Die beiden Schätzer $U_1$ und $U_2$ werden so gewählt, dass
     \begin{align*}
         P(U_1 \leq \theta \leq U_2) \geq 1 - \alpha.
@@ -1089,6 +1089,9 @@
         q_t     &= q_0 \cdot P^t\pause \\
         q_{t+k} &= q_t \cdot P^k.
     \end{align*}\pause
+    \begin{definition}
+        $q_t$ wird auch als \b{Zustandsvektor} der Markov-Kette zum Zeitpunkt $t$ bezeichnet.
+    \end{definition}\par\pause\padding
     Die Einträge von $P^k$ geben an, mit welcher Wahrscheinlichkeit ein Übergang von Zustand $i$ in Zustand $j$ in genau $k$ Schritten erfolgt:
     \begin{align*}
         p_{ij}^{(k)} = P(X_{t+k} = j | X_t = i) = (P^k)_{ij}.
@@ -1122,7 +1125,119 @@
     \end{definition}
 \end{frame}
 
-\subsection{Eigenschaften}
+\begin{frame}
+    Die Wahrscheinlichkeit vom Zustand $i$ in beliebig vielen Schritten in den Zustand $j$ zu gelangen, heißt \b{Ankunftswahrscheinlichkeit} $f_{ij}$:
+    \begin{align*}
+        f_{ij} &= P(T_{ij} \leq \infty)\pause \\
+               &= p_{ij} + \sum_{n \neq j} p_{ik} f_{kj}.
+    \end{align*}\pause
+    \begin{definition}
+        Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ in Zustand $i$ an.\pause\par\spadding
+        Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog definiert.
+    \end{definition}
+\end{frame}
+
+\subsection{Exkurs: Diagonalisierung}
+\begin{frame}{Exkurs: Diagonalisierung}
+    Für Eigenvektoren $x_i$ und zugehörige Eigenwerte $\lambda_i$ einer Matrix $A$ gilt $A \cdot x_i = \lambda_i \cdot x_i$.\pause\par\spadding
+    Damit gilt für eine quadratische Matrix $A$ mit Eigenvektoren $x_1, \dots, x_n$ und zugehörigen Eigenwerten $\lambda_1, \dots, \lambda_n$\pause, dass
+    \begin{align*}
+        A \cdot \begin{bmatrix}
+            x_1 & \cdots & x_n
+        \end{bmatrix}\pause &= \begin{bmatrix}
+            \lambda_1 x_1 & \cdots & \lambda_n x_n
+        \end{bmatrix}\pause \\
+        &= \begin{bmatrix}
+            x_1 & \cdots & x_n
+        \end{bmatrix} \cdot \begin{bmatrix}
+            \lambda_1 & 0 & 0 \\
+            0 & \ddots & 0 \\
+            0 & 0 & \lambda_n
+        \end{bmatrix}.
+    \end{align*}\pause
+    Sei $V$ die Matrix bestehend aus den Eigenvektoren von $A$ als Spaltenvektoren und sei $\Lambda$ die Diagonalmatrix bestehend aus den Eigenwerten von $A$.\pause\par\spadding
+    Dann heißt $V^{-1} \cdot P \cdot V = \Lambda$ \b{Diagonalisierung} von $P$.\pause\par
+    Andererseits gilt auch, dass $P = V \cdot \Lambda \cdot V^{-1}$.
+\end{frame}
+
 \subsection{Stationäre Verteilung}
+\begin{frame}{Stationäre Verteilung}
+    Aus der Diagonalisierung der Übergangsmatrix folgt direkt, dass
+    \begin{align*}
+                                     P^t &= V \cdot \Lambda^t \cdot V^{-1}.
+    \end{align*}\pause
+    Damit kann das Verhalten der Markovkette für $t \to \infty$ beschreiben werden:
+    \begin{align*}
+        \lim_{t \to \infty} q_t\pause = \lim_{t \to \infty} q_0 \cdot P^t.
+    \end{align*}\pause
+    \begin{definition}
+        Ein Zustandsvektor $\pi$ mit $\pi = \pi \cdot P$ heißt \b{stationäre Verteilung} einer Markov-Kette.
+    \end{definition}
+\end{frame}
+
+\subsection{Eigenschaften}
+\begin{frame}{Eigenschaften}
+    Weißt eine Markovkette bestimmte Eigenschaften auf, können Rückschlüsse auf ihre stationäre Verteilung gezogen werden.\pause\par\padding
+    \begin{definition}
+        Ein Zustand $i$ heißt \b{absorbierend}, falls $p_{ii} = 1$, d.h. aus ihm führen keine Übergänge heraus.\pause\par\spadding
+        Ein Zustand $i$ heißt \b{rekurrent}, falls $f_{ii} = 1$, d.h. mit Wahrscheinlichkeit $1$ kehrt die Markovkette in den Zustand $i$ zurück.\pause\par
+        Falls hingegen $f_{ii} < 1$ gilt, heißt der Zustand $i$ \b{transient}.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Eine Markov-Kette heißt \b{irreduzibel} wenn man von jedem Zustand jeden anderen Zustand mit positiver Wahrscheinlichkeit erreicht, wenn man nur genügend Schritte ausführt.\pause\ Das heißt formal:
+        \begin{align*}
+            \forall i, j \in S.\ \exists n \in \mathbb{N}.\ p_{ij}^{(n)} > 0.
+        \end{align*}\pause
+        Eine endliche Markov-Kette ist genau dann irreduzibel wenn ihr Übergangsdiagramm stark zusammenhängend ist.\pause\par\spadding
+        Wenn eine Markov-Kette irreduzibel ist   gilt zudem:\pause
+        \begin{itemize}
+            \item $f_{ij} = 1, \forall i, j \in S$\pause;
+            \item $h_{ij} \text{ existiert}, \forall i, j \in S$\pause; und
+            \item es existiert eine eindeutige stationäre Verteilung $\pi$ mit $\pi_j = \frac{1}{h_{jj}}, \forall j \in S$.
+        \end{itemize}\pause
+        \r{Die Markov-Kette muss nicht zwingend in eine stationäre Verteilung konvergieren (Periodizität!).}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Ein Zustand $i$ heißt \b{aperiodisch}, falls $\exists n_0 \in \mathbb{N}.\ \forall n \geq n_0.\ p_{ii}^{(n)} > 0$.\pause\par\spadding
+        Somit ist ein Zustand $i$ aperiodisch genau dann wenn es im Übergansdiagramm für alle $n \in \mathbb{N}$ ab einem $n_0 \in \mathbb{N}$ einen geschlossenen Weg der Länge $n$ von $i$ nach $i$ gibt.\pause\par\spadding
+        Das heißt Zustand $i$ ist sicherlich dann aperiodisch wenn er im Übergangsdiagramm
+        \begin{itemize}
+            \item eine Schleife besitzt ($p_{ii} > 0$)\pause\ oder
+            \item auf mindestens zwei geschlossenen Pfaden $P_1$ und $P_2$ liegt, deren Längen teilerfremd sind.
+        \end{itemize}\pause\par\padding
+        Eine Markov-Kette heißt \b{aperiodisch} falls alle ihre Zustände aperiodisch sind.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Eine irreduzible und aperiodische Markov-Kette heißt \b{ergodisch}.
+    \end{definition}\pause\par\padding
+    Für jede ergodische Markov-Kette gilt unabhängig der Startverteilung $q_n$, dass
+    \begin{align*}
+        \lim_{n \to \infty} q_n = \pi
+    \end{align*}
+    wobei $\pi$ die eindeutige stationäre Verteilung bezeichnet.
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Eine quadratische Matrix $A$ heißt \b{stochastisch} falls sich alle Zeilen zu Eins aufsummieren.\pause\par\spadding
+        $A$ heißt zusätzlich \b{doppeltstochastisch} falls sich auch alle Spalten zu Eins aufsummieren.
+    \end{definition}\pause\par\padding
+    Für jede Markov-Kette mit doppeltstochastischer Übergangsmatrix gilt unabhängig von der Startverteilung $q_n$, dass
+    \begin{align*}
+        \lim_{n \to \infty} q_n = \begin{bmatrix}
+            \frac{1}{n} & \cdots & \frac{1}{n}
+        \end{bmatrix}
+    \end{align*}
+    wobei $n$ die Kardinalität der Zustandsmenge ist.
+\end{frame}
 
 \end{document}
