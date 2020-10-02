@@ -1049,8 +1049,9 @@
 \subsection{Stochastische Prozesse}
 \begin{frame}{Stochastische Prozesse}
     \begin{definition}
-        Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen Zuständen die ein System zum Zeitpunkt $t$ annimmt.\par\pause\spadding
-        Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{knotinuierlicher Zeit}.
+        Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause\par\spadding\pause\par\spadding
+        Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause\ Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{kontinuierlicher Zeit}.
+        Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen Zuständen die ein System zum Zeitpunkt $t$ annimmt.
     \end{definition}
 \end{frame}
 
@@ -1060,7 +1061,7 @@
         Ein stochastischer Prozess erfüllt die \b{Markov-Bedingung}, falls die Wahrscheinlichkeitsverteilung der Zustände zum Zeitpunkt $t + 1$ nur von der Wahrscheinlichkeitsverteilung der Zustände zum Zeitpunkt $t$ abhängt, nicht aber von Zuständen zum Zeitpunkt $< t$.\pause\par\spadding
         Diese Bedingung kann wie folgt formalisiert werden:
         \begin{align*}
-            P(X_{t+1} = j | X_t = i_t, \dots, X_0 = i_0) = P(X_{t+1} = j | X_t = i_k)\pause =: p_{i_t j}^t.
+            P(X_{t+1} = j | X_t = i_t, \dots, X_0 = i_0) = P(X_{t+1} = j | X_t = i_t)\pause =: p_{i_t j}^t.
         \end{align*}
     \end{definition}
 \end{frame}
@@ -1103,12 +1104,12 @@
     \begin{definition}
         Die \b{Übergangszeit} von Zustand $i$ in Zustand $j$ wird durch die folgende Zufallsvariable modelliert:
         \begin{align*}
-            T_{ij} = min \{n \geq 0 \mid X_n = j, \text{ wenn } X_0 = i\}.
+            T_{ij} = min \{n \geq 1 \mid X_n = j, \text{ wenn } X_0 = i\}.
         \end{align*}\pause
         Die \b{erwartete Übergangszeit} ist gegeben durch
         \begin{align*}
             h_{ij} &= E(T_{ij})\pause \\
-                   &= 1 + \sum_{n \neq j} p_{ik} h_{kj}.
+                   &= 1 + \sum_{k \neq j} p_{ik} h_{kj}.
         \end{align*}
     \end{definition}
 \end{frame}
@@ -1116,24 +1117,12 @@
 \begin{frame}
     Die Wahrscheinlichkeit vom Zustand $i$ in beliebig vielen Schritten in den Zustand $j$ zu gelangen, heißt \b{Ankunftswahrscheinlichkeit} $f_{ij}$:
     \begin{align*}
-        f_{ij} &= P(T_{ij} \leq \infty)\pause \\
-               &= p_{ij} + \sum_{n \neq j} p_{ik} f_{kj}.
+        f_{ij} &= P(T_{ij} < \infty)\pause \\
+               &= p_{ij} + \sum_{k \neq j} p_{ik} f_{kj}.
     \end{align*}\pause
     \begin{definition}
-        Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ in Zustand $i$ an.\pause\par\spadding
-        Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog definiert.
-    \end{definition}
-\end{frame}
-
-\begin{frame}
-    Die Wahrscheinlichkeit vom Zustand $i$ in beliebig vielen Schritten in den Zustand $j$ zu gelangen, heißt \b{Ankunftswahrscheinlichkeit} $f_{ij}$:
-    \begin{align*}
-        f_{ij} &= P(T_{ij} \leq \infty)\pause \\
-               &= p_{ij} + \sum_{n \neq j} p_{ik} f_{kj}.
-    \end{align*}\pause
-    \begin{definition}
-        Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ in Zustand $i$ an.\pause\par\spadding
-        Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog definiert.
+        Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ zu Zustand $i$ an.\pause\par\spadding
+        Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog zu der erwarteten Übergangszeit und der Ankunftswahrscheinlichkeit definiert.
     \end{definition}
 \end{frame}
 
