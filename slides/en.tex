@@ -1007,11 +1007,228 @@
     \end{align*}
 \end{frame}
 
+\subsection{Statistical tests}
+\begin{frame}{Statistical tests}
+    \begin{block}{Characteristics}
+        Statistical tests can be distinguished by the following characteristics:
+        \begin{itemize}
+            \item \textbf{Number of involved random variables}\pause\par
+                Comparison of two random variables with potentially different distributions (\b{two-sample test}), or examination of a single random variable (\b{one-sample test})?\pause\par
+                In case of a two sample test:
+                \begin{itemize}
+                    \item Independence of involved random variables\par
+                        Are \b{independent measurements} (independence) or \b{related measurements} (dependence) taken?\pause
+                    \item Relationships between several random variables\par
+                        \b{Regression analysis} describes the examination of functional dependencies between random variables, whereas \b{dependency analysis} describes the examination of random variables regarding on independence.
+                \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item \textbf{Formulation of the null hypothesis}\pause\par
+            Which parameters are examined by the test (e.g. expected value or variance), or is tested for a given distribution?\pause
+        \item \textbf{Assumptions}\pause\par
+            Which assumptions does the test make regarding independence, distribution, expected value or variance?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Important statistical tests}\pause
+        \begin{itemize}
+            \item Binomial test\pause
+            \item $Z$-test\pause
+            \item $t$-test\pause
+            \item two-sample $t$-test\pause
+            \item $\chi^2$-test
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \section{Markov chains}
 \subsection{Stochastic processes}
+\begin{frame}{Stochastic processes}
+    \begin{definition}
+        A \b{stochastic process} is a sequence of random variables $(X_t)_{t \in T}$ that describe the behavior of a system at time $t$.\pause\par\spadding
+        If $T = \mathbb{N}_0$, the stochastic process has \b{discrete time}.\pause\ If $T = \mathbb{R}_0^+$, the stochastic process has \b{continuous time}.
+        If $X_t$ is discrete (i.e. its range is countable), the system is said to have a distinct \b{state} at time $t$.
+    \end{definition}
+\end{frame}
+
 \subsection{Markov property}
+\begin{frame}{Markov property}
+    \begin{definition}
+        A stochastic process fulfills the \b{Markov property} if the probability distribution of the states at time $t + 1$ solely depends on the probability distribution of states at time $t$, but not on the states at times $< t$.\pause\par\spadding
+        This property can be formalized as follows:
+        \begin{align*}
+            P(X_{t+1} = j | X_t = i_t, \dots, X_0 = i_0) = P(X_{t+1} = j | X_t = i_t)\pause =: p_{i_t j}^t.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        A \b{(finite) Markov chain} (with discrete time) over the state space $S = \{0, \dots, n-1\}$ consists of an infinite sequence of random variables $(X_t)_{t \in \mathbb{N}_0}$ with ranges $S$\pause\ and the \b{initial distribution} $q_0$ with $q_0^T \in \mathbb{R}^n$.\pause\ $q_0$ representing a valid probability mass function (as a row vector) of random variable $X_0$.\pause\ Farther, the Markov property must hold.
+    \end{definition}
+\end{frame}
+
 \subsection{Representations}
+\begin{frame}{Representations}
+    \begin{definition}
+        Are the transition probabilities $p_{ij} = P(X_{t+1} = j | X_t = i)$ constant over time $t$, the Markov chain is called \b{(time-)homogenuous}.\par\pause\spadding
+        In that case the \b{transition matrix} is given as $P = (p_{ij})_{0 \leq i, j < n}$.\par\pause\spadding
+        The \b{transition diagram} is a graph consisting of vertices $S$ and weighted edges represented by the adjacency matrix $P$.
+    \end{definition}\par\pause\padding
+    A concrete instance of the system can be interpreted as a random walk on the transition diagram.
+\end{frame}
+
+\subsection{Probabilities}
+\begin{frame}{Probabilities}
+    The distribution of a Markov chain can be identified iteratively for larger and larger $t$:
+    \begin{align*}
+        q_{t+1} &= q_t \cdot P\pause \\
+        q_t     &= q_0 \cdot P^t\pause \\
+        q_{t+k} &= q_t \cdot P^k.
+    \end{align*}\pause
+    \begin{definition}
+        $q_t$ is the \b{state vector} (or \b{distribution}) of the Markov chain at time $t$.
+    \end{definition}\par\pause\padding
+    The entries of $P^k$ refer to the probability of transitioning from state $i$ to state $j$ in exactly $k$ steps:
+    \begin{align*}
+        p_{ij}^{(k)} = P(X_{t+k} = j | X_t = i) = (P^k)_{ij}.
+    \end{align*}
+\end{frame}
+
+\subsection{Hitting times}
+\begin{frame}{Hitting times}
+    \begin{definition}
+        The \b{hitting time} of state $j$ from state $i$ is modeled by the following random variable:
+        \begin{align*}
+            T_{ij} = min \{n \geq 1 \mid X_n = j \text{ given } X_0 = i\}.
+        \end{align*}\pause
+        The \b{expected hitting time} is given as
+        \begin{align*}
+            h_{ij} &= E(T_{ij})\pause \\
+                   &= 1 + \sum_{k \neq j} p_{ik} h_{kj}.
+        \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    The probability of reaching state $j$ from state $i$ in arbitrarily many steps is called \b{arrival probability} $f_{ij}$:
+    \begin{align*}
+        f_{ij} &= P(T_{ij} < \infty)\pause \\
+               &= p_{ij} + \sum_{k \neq j} p_{ik} f_{kj}.
+    \end{align*}\pause
+    \begin{definition}
+        The random variable $T_i = T_{ii}$ refers to the \b{recurrence time} of state $i$ to state $i$.\pause\par\spadding
+        The \b{expected recurrence time} $h_i = h_{ii}$ and the \b{recurrence probability} $f_i = f_{ii}$ are defined analogously to the expected hitting time and the arrival probability.
+    \end{definition}
+\end{frame}
+
+\subsection{Interlude: Diagonalization}
+\begin{frame}{Interlude: Diagonalization}
+    For eigenvectors $x_i$ and related eigenvalues $\lambda_i$ of a matrix $A$, $A \cdot x_i = \lambda_i \cdot x_i$ holds.\pause\par\spadding
+    Then for a square matrix $A$ with eigenvectors $x_1, \dots, x_n$ and related eigenvalues $\lambda_1, \dots, \lambda_n$\pause, it holds that
+    \begin{align*}
+        A \cdot \begin{bmatrix}
+            x_1 & \cdots & x_n
+        \end{bmatrix}\pause &= \begin{bmatrix}
+            \lambda_1 x_1 & \cdots & \lambda_n x_n
+        \end{bmatrix}\pause \\
+        &= \begin{bmatrix}
+            x_1 & \cdots & x_n
+        \end{bmatrix} \cdot \begin{bmatrix}
+            \lambda_1 & 0 & 0 \\
+            0 & \ddots & 0 \\
+            0 & 0 & \lambda_n
+        \end{bmatrix}.
+    \end{align*}\pause
+    Let $V$ be the matrix consisting of the eigenvectors of $A$ as column vectors and let $\Lambda$ be the diagonal matrix consisting of the eigenvalues of $A$.\pause\par\spadding
+    Then $V^{-1} \cdot A \cdot V = \Lambda$ is called \b{diagonalization} of $A$.\pause\par
+    Conversely, $A = V \cdot \Lambda \cdot V^{-1}$ holds.
+\end{frame}
+
 \subsection{Stationary distribution}
+\begin{frame}{Stationary distribution}
+    From the diagonalization of the transition matrix it follows that
+    \begin{align*}
+                                     P^t &= V \cdot \Lambda^t \cdot V^{-1}.
+    \end{align*}\pause
+    This can be used to describe the behavior of a Markov chain for $t \to \infty$:
+    \begin{align*}
+        \lim_{t \to \infty} q_t\pause = \lim_{t \to \infty} q_0 \cdot P^t.
+    \end{align*}\pause
+    \begin{definition}
+        A state vector $\pi$ with $\pi = \pi \cdot P$ is a \b{stationary distribution} of a Markov chain.
+    \end{definition}
+\end{frame}
+
 \subsection{Properties}
+\begin{frame}{Properties}
+    Certain properties of Markov chains allow to draw conclusions about its stationary distributions.\pause\par\padding
+    \begin{definition}
+        A state $i$ is \b{absorbing} if $p_{ii} = 1$, that is its vertex in the transition diagram has no outgoing edges.\pause\par\spadding
+        A state $i$ is \b{recurrent} if $f_{i} = 1$, that is with probability $1$ the Markov chain returns to state $i$.\pause\par
+        if conversely $f_{i} < 1$, the state $i$ is \b{transient}.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        A Markov chain is \b{irreducible} if every state is reached from every other state with a positive probability if the Markov chain is run for enough steps.\pause\ Formally:
+        \begin{align*}
+            \forall i, j \in S.\ \exists n \in \mathbb{N}.\ p_{ij}^{(n)} > 0.
+        \end{align*}\pause
+        A finite Markov chain is irreducible if and only if its transition diagram is strongly connected.\pause\par\spadding
+        If a Markov chain is irreducible\pause
+        \begin{itemize}
+            \item $f_{ij} = 1, \forall i, j \in S$\pause;
+            \item $h_{ij} \text{ exists}, \forall i, j \in S$\pause; and
+            \item there exists a unique stationary distribution $\pi$ with $\pi_j = \frac{1}{h_{j}}, \forall j \in S$.
+        \end{itemize}\pause
+        \r{The Markov chain does not necessarily converge to the stationary distribution (periodicity!).}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        A state $i$ is \b{aperiodic} if $\exists n_0 \in \mathbb{N}.\ \forall n \geq n_0.\ p_{ii}^{(n)} > 0$.\pause\par\spadding
+        Therefore a state $i$ is aperiodic if and only if the transition diagram has a closed path from $i$ to $i$ with length $n$ for all $n \in \mathbb{N}$ greater some $n_0 \in \mathbb{N}$.\pause\par\spadding
+        That is state $i$ is surely aperiodic if in the transition diagram
+        \begin{itemize}
+            \item it has a loop ($p_{ii} > 0$)\pause\ or
+            \item it is on at least two closed paths $P_1$ and $P_2$ whose lengths are coprime.
+        \end{itemize}\pause\par\padding
+        A Markov chain is \b{aperiodic} if all its states are aperiodic.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        An ireducible and aperiodic Markov chain is called \b{ergodic}.
+    \end{definition}\pause\par\padding
+    For every ergodic Markov chain it holds independently of its initial distribution $q_n$ that
+    \begin{align*}
+        \lim_{n \to \infty} q_n = \pi
+    \end{align*}
+    where $\pi$ refers to its unique stationary distribution.
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        A square matrix $A$ is called \b{stochastic} if all its rows sum to one.\pause\par
+        Every transition matrix $P$ is stochastic.\pause\par\spadding
+        Additionally, $A$ is called \b{doubly stochastic} if also all its columns sum to one.
+    \end{definition}\pause\par\padding
+    For every ergodic Markov chain whose transition matrix is double stochastic it holds independently of its initial distribution $q_n$ that
+    \begin{align*}
+        \lim_{n \to \infty} q_n = \begin{bmatrix}
+            \frac{1}{n} & \cdots & \frac{1}{n}
+        \end{bmatrix}
+    \end{align*}
+    where $n$ refers to the cardinality of the state space.
+\end{frame}
 
 \end{document}

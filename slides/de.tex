@@ -1049,9 +1049,9 @@
 \subsection{Stochastische Prozesse}
 \begin{frame}{Stochastische Prozesse}
     \begin{definition}
-        Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause\par\spadding\pause\par\spadding
+        Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause\par\spadding
         Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause\ Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{kontinuierlicher Zeit}.
-        Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen Zuständen die ein System zum Zeitpunkt $t$ annimmt.
+        Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen \b{Zuständen} die ein System zum Zeitpunkt $t$ annimmt.
     \end{definition}
 \end{frame}
 
@@ -1145,8 +1145,8 @@
         \end{bmatrix}.
     \end{align*}\pause
     Sei $V$ die Matrix bestehend aus den Eigenvektoren von $A$ als Spaltenvektoren und sei $\Lambda$ die Diagonalmatrix bestehend aus den Eigenwerten von $A$.\pause\par\spadding
-    Dann heißt $V^{-1} \cdot P \cdot V = \Lambda$ \b{Diagonalisierung} von $P$.\pause\par
-    Andererseits gilt auch, dass $P = V \cdot \Lambda \cdot V^{-1}$.
+    Dann heißt $V^{-1} \cdot A \cdot V = \Lambda$ \b{Diagonalisierung} von $A$.\pause\par
+    Andererseits gilt auch, dass $A = V \cdot \Lambda \cdot V^{-1}$.
 \end{frame}
 
 \subsection{Stationäre Verteilung}
@@ -1169,8 +1169,8 @@
     Weißt eine Markovkette bestimmte Eigenschaften auf, können Rückschlüsse auf ihre stationäre Verteilung gezogen werden.\pause\par\padding
     \begin{definition}
         Ein Zustand $i$ heißt \b{absorbierend}, falls $p_{ii} = 1$, d.h. aus ihm führen keine Übergänge heraus.\pause\par\spadding
-        Ein Zustand $i$ heißt \b{rekurrent}, falls $f_{ii} = 1$, d.h. mit Wahrscheinlichkeit $1$ kehrt die Markovkette in den Zustand $i$ zurück.\pause\par
-        Falls hingegen $f_{ii} < 1$ gilt, heißt der Zustand $i$ \b{transient}.
+        Ein Zustand $i$ heißt \b{rekurrent}, falls $f_{i} = 1$, d.h. mit Wahrscheinlichkeit $1$ kehrt die Markovkette in den Zustand $i$ zurück.\pause\par
+        Falls hingegen $f_{i} < 1$ gilt, heißt der Zustand $i$ \b{transient}.
     \end{definition}
 \end{frame}
 
@@ -1185,7 +1185,7 @@
         \begin{itemize}
             \item $f_{ij} = 1, \forall i, j \in S$\pause;
             \item $h_{ij} \text{ existiert}, \forall i, j \in S$\pause; und
-            \item es existiert eine eindeutige stationäre Verteilung $\pi$ mit $\pi_j = \frac{1}{h_{jj}}, \forall j \in S$.
+            \item es existiert eine eindeutige stationäre Verteilung $\pi$ mit $\pi_j = \frac{1}{h_{j}}, \forall j \in S$.
         \end{itemize}\pause
         \r{Die Markov-Kette muss nicht zwingend in eine stationäre Verteilung konvergieren (Periodizität!).}
     \end{definition}
@@ -1217,10 +1217,11 @@
 
 \begin{frame}
     \begin{definition}
-        Eine quadratische Matrix $A$ heißt \b{stochastisch} falls sich alle Zeilen zu Eins aufsummieren.\pause\par\spadding
-        $A$ heißt zusätzlich \b{doppeltstochastisch} falls sich auch alle Spalten zu Eins aufsummieren.
+        Eine quadratische Matrix $A$ heißt \b{stochastisch}, falls sich alle Zeilen zu Eins aufsummieren.\pause\par
+        Jede Übergangsmatrix $P$ ist stochastisch.\pause\par\spadding
+        $A$ heißt zusätzlich \b{doppeltstochastisch}, falls sich auch alle Spalten zu Eins aufsummieren.
     \end{definition}\pause\par\padding
-    Für jede Markov-Kette mit doppeltstochastischer Übergangsmatrix gilt unabhängig von der Startverteilung $q_n$, dass
+    Für jede ergodische Markov-Kette mit doppeltstochastischer Übergangsmatrix gilt unabhängig von der Startverteilung $q_n$, dass
     \begin{align*}
         \lim_{n \to \infty} q_n = \begin{bmatrix}
             \frac{1}{n} & \cdots & \frac{1}{n}
