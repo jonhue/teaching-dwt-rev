@@ -112,7 +112,7 @@
         \begin{block}{}\begin{tabularx}{\textwidth}{X||X|X}
             & order & $\neg$ order \\ \hline\hline
             \onslide<1->{replacement} & \onslide<2->{$n^k$} & \onslide<5->{$n + k - 1 \choose k$}\\
-            \onslide<1->{$\neg$ replacement} & \onslide<4->{$\frac{n!}{k!}$} & \onslide<3->{$n \choose k$}
+            \onslide<1->{$\neg$ replacement} & \onslide<4->{$\frac{n!}{(n - k)!}$} & \onslide<3->{$n \choose k$}
         \end{tabularx}\end{block}
     \end{block}
 \end{frame}
@@ -884,7 +884,7 @@
 \subsection{Estimators}
 \begin{frame}{Estimators}
     \begin{definition}
-        An \b{estimator} is a random variable composed of multiple sample variables.\pause\par\spadding
+        An \b{estimator} for parameter $\theta$ is a random variable composed of multiple sample variables used to estimate $\theta$.\pause\par\spadding
         The \b{bias} of an estimator $U$ is given as $E(U - \theta)$.\pause\par\spadding
         An estimator $U$ is \b{unbiased} for the parameter $\theta$ if $E(U) = \theta$\par
         (i.e. its bias is zero).
