@@ -112,7 +112,7 @@
         \begin{block}{}\begin{tabularx}{\textwidth}{X||X|X}
             & Reihenfolge & $\neg$ Reihenfolge \\ \hline\hline
             \onslide<1->{Zurücklegen} & \onslide<2->{$n^k$} & \onslide<5->{$n + k - 1 \choose k$}\\
-            \onslide<1->{$\neg$ Zurücklegen} & \onslide<4->{$\frac{n!}{k!}$} & \onslide<3->{$n \choose k$}
+            \onslide<1->{$\neg$ Zurücklegen} & \onslide<4->{$\frac{n!}{(n - k)!}$} & \onslide<3->{$n \choose k$}
         \end{tabularx}\end{block}
     \end{block}
 \end{frame}
@@ -884,7 +884,7 @@
 \subsection{Schätzer}
 \begin{frame}{Schätzer}
     \begin{definition}
-        Ein \b{Schätzer} ist eine Zufallsvariable die mehrere Stichprobenvariablen kombiniert.\pause\par\spadding
+        Ein \b{Schätzer} für Parameter $\theta$ ist eine Zufallsvariable, die mehrere Stichprobenvariablen kombiniert und verwendet wird, um $\theta$ abzuschätzen.\pause\par\spadding
         Der \b{Bias} eines Schätzers $U$ ist gegeben als $E(U - \theta)$.\pause\par\spadding
         Ein Schätzer $U$ ist \b{erwartungstreu} bezüglich dem Parameter $\theta$ falls $E(U) = \theta$\par
         (d.h. der Bias des Schätzers ist Null).
