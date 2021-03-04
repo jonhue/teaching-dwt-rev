@@ -815,7 +815,7 @@
 
 \begin{frame}
     \begin{block}{Warten auf mehrere Ereignisse}
-        Seien $X_1, \dots, X_n$ unabhängige, exponentialverteilte Zufallsvariablen mit Parametern $\lambda_1, \dots, \lambda_n$. Dann ist $X = min \{X_1, \dots, X_n\}$ exponentialverteilt mit Parameter $\lambda_1 + \cdots + \lambda_n$.
+        Seien $X_1, \dots, X_n$ unabhängige, exponentialverteilte Zufallsvariablen mit Parametern $\lambda_1, \dots, \lambda_n$. Dann ist $X = \min \{X_1, \dots, X_n\}$ exponentialverteilt mit Parameter $\lambda_1 + \cdots + \lambda_n$.
     \end{block}\pause\par\padding
     \begin{block}{Exponential-Approximation der geometrischen Verteilung}
         Sei $X_n \sim Geom(\lambda / n)$. Die Verteilung der skalierten geometrisch verteilten Zufallsvariablen $Y_n = \frac{1}{n} X_n$ konvergiert mit $n \to \infty$ zu einer Exponentialverteilung mit Parameter $\lambda$.
@@ -827,7 +827,7 @@
         Seien $T_1, T_2, \ldots \sim Exp(\lambda)$ unabhängige und gleichverteilte Zufallsvariablen, die die Zeit zwischen dem $(i - 1)$-ten und dem $i$-ten Ereignis modellieren.\pause\par
         Für $t > 0$ definieren wir
         \begin{align*}
-            X(t) = max \{n \in \mathbb{N} \mid T_1 + \cdots + T_n \leq t\},
+            X(t) = \max \{n \in \mathbb{N} \mid T_1 + \cdots + T_n \leq t\},
         \end{align*}
         das die Anzahl der Ereignisse repräsentiert, die bis zum Zeitpunkt $t$ augetreten sind.\pause\par
         Dann ist $X(t)$ Poisson-verteilt mit Parameter $t \lambda$.
@@ -1051,7 +1051,7 @@
 \begin{frame}{Stochastische Prozesse}
     \begin{definition}
         Ein \b{stochastischer Prozess} ist eine Folge von Zufallsvariablen $(X_t)_{t \in T}$, die das Verhalten eines Systems zu verschiedenen Zeitpunkten $t$ angeben.\pause\par\spadding
-        Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause\ Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{kontinuierlicher Zeit}.
+        Gilt $T = \mathbb{N}_0$, so spricht man von einem stochastischen Prozess mit \b{diskreter Zeit}.\pause\ Gilt hingegen $T = \mathbb{R}_0^+$, so spricht man von einem stochastischen Prozess mit \b{kontinuierlicher Zeit}.\par
         Falls $X_t$ diskret ist, spricht man auch von unterschiedlichen \b{Zuständen} die ein System zum Zeitpunkt $t$ annimmt.
     \end{definition}
 \end{frame}
@@ -1069,7 +1069,8 @@
 
 \begin{frame}
     \begin{definition}
-        Eine \b{(endliche) Markov-Kette} (mit diskreter Zeit) über Zustandsmenge $S = \{0, \dots, n-1\}$ besteht aus einer unendlichen Folge von Zufallsvariablen $(X_t)_{t \in \mathbb{N}_0}$ wit Wertebereich $S$\pause\ und \b{Startverteilung} $q_0$ mit $q_0^T \in \mathbb{R}^n$.\pause\ $q_0$ muss als Zeilenvektor eine valide diskrete Dichtefunktion auf der Zustandsmenge $S$ beschreiben.\pause\ Weiterhin muss die Markov-Bedingung erfüllt sein.
+        Eine \b{(endliche) Markov-Kette} (mit diskreter Zeit) über Zustandsmenge $S = \{0, \dots, n-1\}$ besteht aus einer unendlichen Folge von Zufallsvariablen $(X_t)_{t \in \mathbb{N}_0}$ wit Wertebereich $S$\pause\ und \b{Startverteilung} $q_0$ mit $q_0^T \in \mathbb{R}^n$.\pause\ $q_0$ muss als Zeilenvektor eine valide diskrete Dichtefunktion auf der Zustandsmenge $S$ beschreiben.\pause\par
+        Weiterhin muss die Markov-Bedingung erfüllt sein.
     \end{definition}
 \end{frame}
 
@@ -1105,7 +1106,7 @@
     \begin{definition}
         Die \b{Übergangszeit} von Zustand $i$ in Zustand $j$ wird durch die folgende Zufallsvariable modelliert:
         \begin{align*}
-            T_{ij} = min \{n \geq 1 \mid X_n = j, \text{ wenn } X_0 = i\}.
+            T_{ij} = \min \{n \geq 1 \mid X_n = j, \text{ wenn } X_0 = i\}.
         \end{align*}\pause
         Die \b{erwartete Übergangszeit} ist gegeben durch
         \begin{align*}
@@ -1125,6 +1126,14 @@
         Die Zufallsvariable $T_i = T_{ii}$ gibt die \b{Rückkehrzeit} von Zustand $i$ zu Zustand $i$ an.\pause\par\spadding
         Die \b{erwartete Rückkehrzeit} $h_i = h_{ii}$ und die \b{Rückkehrwahrscheinlichkeit} $f_i = f_{ii}$ sind analog zu der erwarteten Übergangszeit und der Ankunftswahrscheinlichkeit definiert.
     \end{definition}
+\end{frame}
+
+\subsection{Stationäre Verteilung}
+\begin{frame}{Stationäre Verteilung}
+    \begin{definition}
+        Ein Zustandsvektor $\pi$ mit $\pi = \pi \cdot P$ heißt \b{stationäre Verteilung} einer Markov-Kette.
+    \end{definition}\par\pause\padding
+    Eine Markovkette konvergiert nicht notwendigerweise in eine ihrer stationären Verteilungen. Konvergenz hängt von den Eigenschaften der Markovkette und der Startverteilung ab.
 \end{frame}
 
 \subsection{Exkurs: Diagonalisierung}
@@ -1150,19 +1159,17 @@
     Andererseits gilt auch, dass $A = V \cdot \Lambda \cdot V^{-1}$.
 \end{frame}
 
-\subsection{Stationäre Verteilung}
-\begin{frame}{Stationäre Verteilung}
+\subsection{Konvergenz}
+\begin{frame}{Konvergenz}
     Aus der Diagonalisierung der Übergangsmatrix folgt direkt, dass
     \begin{align*}
                                      P^t &= V \cdot \Lambda^t \cdot V^{-1}.
     \end{align*}\pause
     Damit kann das Verhalten der Markovkette für $t \to \infty$ beschreiben werden:
     \begin{align*}
-        \lim_{t \to \infty} q_t\pause = \lim_{t \to \infty} q_0 \cdot P^t.
-    \end{align*}\pause
-    \begin{definition}
-        Ein Zustandsvektor $\pi$ mit $\pi = \pi \cdot P$ heißt \b{stationäre Verteilung} einer Markov-Kette.
-    \end{definition}
+        &\lim_{t \to \infty} q_t\pause = \lim_{t \to \infty} q_0 \cdot P^t.\pause \\
+        &\lim_{t \to \infty} P(X_t = j \mid X_0 = i)\pause = \lim_{t \to \infty} P^t(i,j).
+    \end{align*}
 \end{frame}
 
 \subsection{Eigenschaften}
@@ -1182,19 +1189,32 @@
             \forall i, j \in S.\ \exists n \in \mathbb{N}.\ p_{ij}^{(n)} > 0.
         \end{align*}\pause
         Eine endliche Markov-Kette ist genau dann irreduzibel wenn ihr Übergangsdiagramm stark zusammenhängend ist.\pause\par\spadding
-        Wenn eine Markov-Kette irreduzibel ist   gilt zudem:\pause
+        Wenn eine endliche Markov-Kette irreduzibel ist   gilt zudem:\pause
         \begin{itemize}
             \item $f_{ij} = 1, \forall i, j \in S$\pause;
             \item $h_{ij} \text{ existiert}, \forall i, j \in S$\pause; und
-            \item es existiert eine eindeutige stationäre Verteilung $\pi$ mit $\pi_j = \frac{1}{h_{j}}, \forall j \in S$.
+            \item es existiert eine eindeutige stationäre Verteilung $\pi$ mit $\pi(j) = \frac{1}{h_{j}}, \forall j \in S$.
         \end{itemize}\pause
         \r{Die Markov-Kette muss nicht zwingend in eine stationäre Verteilung konvergieren (Periodizität!).}
     \end{definition}
 \end{frame}
 
 \begin{frame}
+    Nun wollen wir die Periodizität von Zuständen betrachten.\pause
     \begin{definition}
-        Ein Zustand $i$ heißt \b{aperiodisch}, falls $\exists n_0 \in \mathbb{N}.\ \forall n \geq n_0.\ p_{ii}^{(n)} > 0$.\pause\par\spadding
+        Für einen Zustand $i$ definieren wir
+        \begin{align*}
+            T(i) = \{n \geq 1 \mid P^n(i,i) > 0\}.
+        \end{align*}\pause
+        Dann ist die \b{Periode} des Zustandes $i$ definiert als $d_i = gcd(T(i))$.\pause\par\padding
+        Falls eine Markovkette irreduzibel ist, ist die Periode aller Zustände gleich. Diese Periode wird dann als Periode der Markovkette bezeichnet.
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Ein Zustand $i$ heißt \b{aperiodisch}, falls $d_i = 1$\pause, oder equivalent, falls $
+\exists n_0 \in \mathbb{N}.\ \forall n \geq n_0.\ p_{ii}^{(n)} > 0$.\pause\par\spadding
         Somit ist ein Zustand $i$ aperiodisch genau dann wenn es im Übergansdiagramm für alle $n \in \mathbb{N}$ ab einem $n_0 \in \mathbb{N}$ einen geschlossenen Weg der Länge $n$ von $i$ nach $i$ gibt.\pause\par\spadding
         Das heißt Zustand $i$ ist sicherlich dann aperiodisch wenn er im Übergangsdiagramm
         \begin{itemize}
@@ -1209,9 +1229,9 @@
     \begin{definition}
         Eine irreduzible und aperiodische Markov-Kette heißt \b{ergodisch}.
     \end{definition}\pause\par\padding
-    Für jede ergodische Markov-Kette gilt unabhängig der Startverteilung $q_n$, dass
+    Für jede endliche ergodische Markov-Kette gilt unabhängig der Startverteilung $q_0$, dass
     \begin{align*}
-        \lim_{n \to \infty} q_n = \pi
+        \lim_{t \to \infty} q_t = \pi
     \end{align*}
     wobei $\pi$ die eindeutige stationäre Verteilung bezeichnet.
 \end{frame}
@@ -1222,13 +1242,10 @@
         Jede Übergangsmatrix $P$ ist stochastisch.\pause\par\spadding
         $A$ heißt zusätzlich \b{doppeltstochastisch}, falls sich auch alle Spalten zu Eins aufsummieren.
     \end{definition}\pause\par\padding
-    Für jede ergodische Markov-Kette mit doppeltstochastischer Übergangsmatrix gilt unabhängig von der Startverteilung $q_n$, dass
+    Für jede endliche ergodische Markov-Kette mit doppeltstochastischer Übergangsmatrix gilt, dass die stationäre Verteilung jedem Zustand die gleiche Wahrscheinlichkeit zuweist:
     \begin{align*}
-        \lim_{n \to \infty} q_n = \begin{bmatrix}
-            \frac{1}{n} & \cdots & \frac{1}{n}
-        \end{bmatrix}
+        \pi \equiv \frac{1}{|S|}.
     \end{align*}
-    wobei $n$ die Kardinalität der Zustandsmenge ist.
 \end{frame}
 
 \end{document}
