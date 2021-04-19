@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{alltt}
+\usepackage{amsmath}
+\usepackage{csquotes}
+
+\def\code#1{\texttt{#1}}
+
+\title{Important Series}
+\author{Jonas Hübotter}
+
+\begin{document}
+
+\maketitle
+
+\begin{itemize}
+    \item \textbf{Gemoetric series}
+        \begin{align*}
+            &\sum_{k=0}^\infty a r^k = \frac{a}{1-r}, \mid r \mid < 1.
+        \end{align*}
+    \item \textbf{Derivative of the Geometric series}
+        \begin{align*}
+            &\sum_{k=0}^\infty a k r^{k-1} = \frac{a}{(1-r)^2}, \mid r \mid < 1.
+        \end{align*}
+    \item \textbf{Binomial series}
+        \begin{align*}
+            &\sum_{k=0}^\infty {\alpha \choose k} x^k = (1+x)^\alpha.
+        \end{align*}
+    \item \textbf{Exponential series}
+        \begin{align*}
+            &\sum_{k=0}^\infty \frac{x^k}{k} = e^x.
+        \end{align*}
+    \item \textbf{Taylor series (of $f$ around $a$)}
+        \begin{align*}
+            &\sum_{k=0}^\infty \frac{f^{(k)}(a)}{k!} (x-a)^k = f(x).
+        \end{align*}
+\end{itemize}
+
+\end{document}
