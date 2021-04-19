@@ -176,7 +176,7 @@
 \begin{frame}
     Also the \b{principle of inclusion-exclusion} holds:
     \begin{align*}
-        P(\bigcup_{i=1}^n A_i) = \sum_{I \in [n], I \neq \emptyset} (-1)^{|I| + 1} \cdot P(\bigcap_{i \in I} A_i).
+        P(\bigcup_{i=1}^n A_i) = \sum_{I \subseteq [n], I \neq \emptyset} (-1)^{|I| + 1} \cdot P(\bigcap_{i \in I} A_i).
     \end{align*}\pause\par\padding
     And \b{Boole's inequality} holds:
     \begin{align*}
