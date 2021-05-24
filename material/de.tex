@@ -475,7 +475,8 @@
         \item $E(X) = G_X'(1)$\pause
         \item $Var(X) = G_X''(1) + G_X'(1) - (G_X'(1))^2$\pause
         \item $G_{X + t}(s) = s^t \cdot G_X(s), t \in \mathbb{N}_0$\pause
-        \item $G_{X + Y}(s) = G_X(s) \cdot G_Y(s)$ falls $X,Y$ unabhängig.
+        \item $G_{X + Y}(s) = G_X(s) \cdot G_Y(s)$ falls $X,Y$ unabhängig\pause
+        \item $G_Z(s) = G_N(G_X(s))$ für $Z = X_1 + \dots + X_N$, $X_i$ unabhängig und identisch verteilt mit wahrscheinlichkeitserzeugender Funktion $G_X$ und $N$ unabhängig.
     \end{itemize}
 \end{frame}
 
@@ -945,7 +946,7 @@
     \begin{align*}
         \frac{\sum_{i=1}^n X_i - n \mu}{\sigma \sqrt{n}} \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}
     \end{align*}
-    für $X_i$ i.i.d..\pause\par\spadding
+    für $X_i$ unabhängig und identisch verteilt.\pause\par\spadding
     Equivalent:
     \begin{align*}
         \sqrt{n} \left(\frac{\bar{X} - \mu}{\sigma}\right) \xrightarrow{n \to \infty} \mathcal{N}(0,1) \text{ in der Verteilung}.
