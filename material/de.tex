@@ -208,8 +208,8 @@
 \begin{frame}{Unabhängigkeit}
     Zwei Ereignisse sind \b{unabhängig} wenn das Auftreten des einen Ereignisses nicht die Wahrscheinlichkeit des anderen Ereignisses beeinflusst.\pause\par\padding
     Zwei Ereignisse $A$ und $B$ sind unabhängig\par
-    $\iff P(A|B) = P(A)$\pause\par
-    $\iff P(B|A) = P(B)$\pause\par
+    $\iff P(A|B) = P(A)$ for $P(B) > 0$\pause\par
+    $\iff P(B|A) = P(B)$ for $P(A) > 0$\pause\par
     $\iff P(A,B) = P(A) P(B)$.
 \end{frame}
 
@@ -622,6 +622,33 @@
             \int_{- \infty}^{+ \infty} f_X(x)\ dx = 1.
         \end{align*}
     \end{definition}
+\end{frame}
+
+\subsection{Messbarkeitstheorie}
+\begin{frame}{Messbarkeitstheorie}
+    \begin{definition}
+        \begin{itemize}
+            \item Eine \b{Borel'sche Menge} für $\mathbb{R}$ ist eine Teilmenge $A \subseteq \mathbb{R}$, die als durch abzählbare Vereinigungen und Schnitte von Intervallen (offen, halboffen, oder geschlossen) auf $\mathbb{R}$ dargestellt werden kann.\pause
+            \item Eine Funktion $f : \mathbb{R} \to \mathbb{R}$ ist \b{(Borel-)messbar}, falls das Urbild jeder Borel'schen Menge ebenfalls eine Borel'sche Menge ist.\pause
+            \item Für eine messbar Funktion $f$ schreiben wir das \b{Lebesgue-Integral} als $\int f\ d\lambda$.
+        \end{itemize}
+    \end{definition}\pause
+    \begin{example}[Beispiele messbarer Funktionen]
+        \begin{itemize}
+            \item die charakteristische Funktion $1_A$ der Menge $A$,
+            \item stetige Funktionen, und
+            \item Summen und Produkte messbarer Funktionen.
+        \end{itemize}
+    \end{example}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Wahrscheinlichkeitsräume über Borel'schen Mengen}
+        Die Menge von Borel'schen Mengen $\mathcal{A}$ ist eine $\sigma$-Algebra über $\mathbb{R}$.\pause\par\spadding
+        Eine Borel-messbare Funktion $f$ mit den Eigenschaften einer kontinuierlichen Dichtefunktion definiert den Wahrscheinlichkeitsraum $(\mathbb{R}, \mathcal{A}, P)$\pause\ mit \begin{align*}
+            P : A \mapsto \int f \cdot 1_A\ d\lambda.
+        \end{align*}\pause\ Insbesondere erfüllt $P$ die Kolmogorov Axiome.
+    \end{block}
 \end{frame}
 
 \subsection{Kontinuierliche Wahrscheinlichkeitsräume}

@@ -208,8 +208,8 @@
 \begin{frame}{Independence}
     Two events are \b{independent} if the occurrence of one event does not affect the probability of occurrence of the other event.\pause\par\padding
     Two events $A$ and $B$ are independent\par
-    $\iff P(A|B) = P(A)$\pause\par
-    $\iff P(B|A) = P(B)$\pause\par
+    $\iff P(A|B) = P(A)$ for $P(B) > 0$\pause\par
+    $\iff P(B|A) = P(B)$ for $P(A) > 0$\pause\par
     $\iff P(A,B) = P(A) P(B)$.
 \end{frame}
 
@@ -622,6 +622,33 @@
             \int_{- \infty}^{+ \infty} f_X(x)\ dx = 1.
         \end{align*}
     \end{definition}
+\end{frame}
+
+\subsection{Measure Theory}
+\begin{frame}{Measure Theory}
+    \begin{definition}
+        \begin{itemize}
+            \item A \b{Borel set} of $\mathbb{R}$ is any subset $A \subseteq \mathbb{R}$ which can be represented as countably many unions and intersections of intervals (open, half-open, or closed) on $\mathbb{R}$.\pause
+            \item A function $f : \mathbb{R} \to \mathbb{R}$ is \b{(Borel-)measurable} if the preimage of any Borel set also is a Borel set.\pause
+            \item For a measurable function $f$ we denote the \b{Lebesgue integral} by $\int f\ d\lambda$.
+        \end{itemize}
+    \end{definition}\pause
+    \begin{example}[Examples of measurable functions]
+        \begin{itemize}
+            \item the characteristic function $1_A$ of the set $A$,
+            \item continuous functions, and
+            \item sums and products of measurable functions.
+        \end{itemize}
+    \end{example}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Probability spaces over Borel sets}
+        The set of Borel sets $\mathcal{A}$ is a $\sigma$-algebra over $\mathbb{R}$.\pause\par\spadding
+        A Borel-measurable function $f$ with the properties of a PDF defines the probability space $(\mathbb{R}, \mathcal{A}, P)$\pause\ with \begin{align*}
+            P : A \mapsto \int f \cdot 1_A\ d\lambda.
+        \end{align*}\pause\ Especially, $P$ satisfies the Kolmogorov axioms.
+    \end{block}
 \end{frame}
 
 \subsection{Continuous probability spaces}
