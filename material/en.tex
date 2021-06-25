@@ -952,8 +952,8 @@
     \b{Maximum Likelihood Construction} is a procedure to construct estimators for parameters of a given distribution. We find the parameter under which the given samples are most likely. In other words, we find the most likely function to explain the given samples.\pause\par\padding
     Given sample variables $\overrightarrow{X} = (X_1, \dots, X_n)$ and samples $\overrightarrow{x} = (x_1, \dots, x_n)$, find Maximum-Likelihood estimator for $X$ with parameter $\theta$.
     \begin{enumerate}
-        \item construct $L(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_X(x_i; \theta)$
-        \item find $\theta$ maximizing $L$
+        \item construct $L(\overrightarrow{x}; \theta) = f_{\overrightarrow{X}}(\overrightarrow{x}; \theta) = \prod_{i=1}^n f_{X_i}(x_i; \theta)$, modeling the likelihood that the samples $\overrightarrow{x}$ are described by $\theta$
+        \item find $\theta$ maximizing $L$, or equivalently $\ln L(\overrightarrow{x}; \theta) = \sum_{i=1}^n \ln f_{X_i}(x_i; \theta)$
         \item the value for $\theta$ maximizing $L$ is a Maximum-Likelihood estimator for $\theta$
     \end{enumerate}
 \end{frame}
